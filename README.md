@@ -129,3 +129,9 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
 **Descripción**: El administrador gestiona los permisos de usuarios.
 - **Actor**: Administrador.
 - **Flujo**: Acceder a gestión de usuarios > Asignar permisos/roles > Guardar cambios.
+
+  
+## Diagrama inicial entidad relación
+
+![Diagrana_ER_GED](./readme_imgs/Diagrama_GED)
+
