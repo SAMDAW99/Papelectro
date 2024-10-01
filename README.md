@@ -133,5 +133,5 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
   
 ## Diagrama inicial entidad relación
 
-![Diagrana_ER_GED](./readme_imgs/Diagrama_GED)
+![Diagrana_ER_GED](./readme_imgs/Diagrama_GED_oscuro.png)
 
