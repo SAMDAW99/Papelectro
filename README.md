@@ -135,3 +135,79 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
 
 ![Diagrana_ER_GED](./readme_imgs/Diagrama_GED_oscuro.png)
 
+# Identidad Corporativa de Papelectro
+
+### Logotipo
+Para Papelectro, se ha optado por un diseño **sin logotipo**. Esto aporta una imagen más minimalista, profesional y moderna, coherente con una aplicación de gestión documental enfocada en la eficiencia y simplicidad.
+
+En lugar de un logo tradicional, el nombre **"Papelectro"** en una tipografía clara y elegante, como **Mitr** en mayúsculas, servirá como identificador visual. Esto aparecerá en la cabecera y en otros elementos de la interfaz, ofreciendo un aspecto visual limpio y profesional.
+
+### Justificación
+El diseño sin logotipo permite:
+- Un **aspecto visual más limpio y ligero**, eliminando distracciones.
+- Centrar la atención del usuario en las funcionalidades esenciales de la aplicación.
+- Facilitar la adaptación a diferentes tamaños de pantalla, manteniendo la marca visible y reconocible.
+
+Este enfoque es ideal para la imagen de **Papelectro** como herramienta moderna y eficiente para la gestión de documentos empresariales.
+
+### Iconografía
+
+Utilizaré iconos de funcionalidades (como búsqueda, descarga y almacenamiento) en un **estilo minimalista lineal**, lo cual refuerza la simplicidad y limpieza visual del diseño de Papelectro. Este estilo garantiza que los iconos se integren armoniosamente en la interfaz sin desviar la atención de la funcionalidad principal.
+
+Para mantener una apariencia coherente y profesional, he preferido **iconos monocromáticos** en el color principal de la marca o en blanco. Esto aporta un aspecto uniforme que complementa el diseño general y respalda la identidad visual de la aplicación.
+
+Están en la carpeta static/icons
+
+### 2. Tipografía Corporativa
+
+- **Fuente Principal**: La fuente **Mitr** es ideal para los títulos y subtítulos, aportando un toque moderno y profesional que refuerza la imagen de tecnología y claridad que quiere transmitir Papelectro.
+
+- **Fuente Secundaria**: **Roboto** se utiliza para el cuerpo del texto y descripciones, por su versatilidad y excelente legibilidad en pantalla.
+
+#### Jerarquía:
+- **Títulos**: Mitr, tamaño 32-40px.
+- **Subtítulos**: Mitr, tamaño 24-30px.
+- **Texto Normal**: Roboto, tamaño 16px.
+
+### Esquema de Colores
+
+Los colores elegidos reflejan profesionalismo, tecnología y accesibilidad, y cuidado del medio ambiente logrando una paleta limpia y moderna que apoya la funcionalidad y usabilidad de Papelectro:
+
+- **Color principal:** Verde claro (#2ecc71), aplicado en encabezados y botones destacados, dando una sensación de frescura y fiabilidad.
+- **Color de acción:** Azul claro (#3498db) para botones clave como "Registrarse" o "Descubre más", incentivando la interacción y manteniendo un enfoque en la acción.
+- **Color secundario:** Gris oscuro (#34495e) para el texto, asegurando una excelente legibilidad y contraste.
+- **Color de fondo:** Blanco (#ffffff) y gris claro (#f4f4f4) para los elementos de fondo, proporcionando una base limpia y sencilla que enfoca la atención en el contenido y las funcionalidades principales.
+
+  ### Estilo General del Diseño
+
+Para Papelectro, el diseño se centra en una estética limpia y minimalista, que prioriza funcionalidad y claridad en cada elemento visual:
+
+- **Estilo Visual:** Adoptamos un diseño minimalista que elimina distracciones y enfatiza la facilidad de uso. La simplicidad y el enfoque en lo esencial brindan una apariencia profesional, alineada con los valores tecnológicos de la aplicación.
+
+- **Botones:** Los botones tienen un estilo redondeado y un grosor mediano, facilitando la interacción táctil y visual. El color principal del botón varía según la acción:
+  - **Azul claro**: Se utiliza para los botones informativos, proporcionando un tono suave que invita a explorar.
+  - **Verde claro**: Dedicado a las acciones de registro o compra, este color destaca entre los demás, guiando de forma intuitiva hacia las interacciones clave.
+
+- **Banners y Secciones:** Los banners son visualmente llamativos, con un texto central y claro que invita a interactuar. Se usará fondos en tonos claros para mantener la limpieza visual, acompañados de sombras suaves o bordes definidos en las secciones, que aportan un toque profesional sin sobrecargar el diseño.
+
+Este estilo unificado asegura que los usuarios encuentren la experiencia intuitiva y atractiva, ayudando a consolidar la identidad corporativa de Papelectro.
+
+### Uso de Espacios y Diseño Responsivo
+
+Para Papelectro, es fundamental que la experiencia del usuario sea fluida y agradable en cualquier dispositivo. Para lograr esto, se implementarán las siguientes estrategias:
+
+- **Margen:** Se mantendrán márgenes amplios en las secciones principales para proporcionar un espacio adecuado alrededor del contenido. Esto no solo mejora la estética visual, sino que también evita la saturación de información, permitiendo que los usuarios se concentren en lo que es realmente importante.
+
+- **Diseño Adaptativo:** Se utilizarán frameworks como Bootstrap o CSS Grid para garantizar que el diseño sea responsivo y se adapte a todos los tamaños de pantalla. Este enfoque permitirá que los usuarios accedan a Papelectro sin importar el dispositivo que utilicen, desde smartphones hasta pantallas de escritorio, asegurando que la funcionalidad y la presentación visual se mantengan consistentes.
+
+Con estos principios, Papelectro ofrecerá una interfaz intuitiva y accesible que prioriza la comodidad del usuario, facilitando la gestión documental en un entorno digital dinámico.
+
+
+
+
+
+
+
+
+
+
