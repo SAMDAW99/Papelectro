@@ -1,31 +1,37 @@
 {% extends 'main/base.html' %}
+{% load static i18n %}
 {% block general %}
-<section class="banner mt-5">
-    <h2>Gestión Electrónica de Documentos para Empresas</h2>
-    <p>Organiza, almacena y accede a tus documentos desde cualquier lugar. Simplifica la gestión documental de tu empresa con <ins class='title'>Papelectro.<ins></p>
-    <a href="#features" class="btn btn-primary" >Descubre más</a>
+<section class="banner mt-5 text-center">
+    <h2>Olvida el caos, bienvenido al orden digital</h2>
+    <p>Organiza, almacena y accede a tus documentos desde cualquier lugar. Simplifica la gestión documental de tu empresa con <ins class='title'>Papelectro.</ins></p>
+    <a href="#features" class="btn btn-primary">Descubre más</a>
 </section>
 
-<section class="features" id="features">
-    <div class="feature">
-        <h3>Almacenamiento Seguro</h3>
-        <p>Sube, organiza y descarga archivos de forma segura en nuestra plataforma, con la tranquilidad de que tus datos están protegidos.</p>
-    </div>
-    <div class="feature">
-        <h3>Búsqueda Inteligente</h3>
-        <p>Encuentra rápidamente los documentos que necesitas con nuestro sistema de búsqueda avanzada por palabras clave, categorías o fechas.</p>
-    </div>
-    <div class="feature">
-        <h3>Planes Personalizados</h3>
-        <p>Elige el plan de almacenamiento que mejor se adapte a las necesidades de tu empresa, con opciones escalables según el crecimiento.</p>
+<section class="features my-5" id="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <h3>Almacenamiento Seguro</h3>
+                <p>Sube, organiza y descarga archivos de forma segura en nuestra plataforma, con la tranquilidad de que tus datos están protegidos.</p>
+                <!-- Imagen adaptada con Bootstrap -->
+                <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded" alt="Almacenamiento Seguro">
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Búsqueda Inteligente</h3>
+                <p>Encuentra rápidamente los documentos que necesitas con nuestro sistema de búsqueda avanzada por palabras clave, categorías o fechas.</p>
+                <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded" alt="Busqueda Inteligente">
+            </div>
+            <div class="col-md-4 text-center">
+                <h3>Planes Personalizados</h3>
+                <p>Elige el plan de almacenamiento que mejor se adapte a las necesidades de tu empresa, con opciones escalables según el crecimiento.</p>
+            </div>
+        </div>
     </div>
 </section>
 
-<section class="cta">
+<section class="cta text-center py-5 bg-light">
     <h2>Empieza Hoy Mismo</h2>
     <p>Optimiza la gestión de documentos de tu empresa con Papelectro. ¡Regístrate y prueba nuestras funcionalidades avanzadas!</p>
-    <a href="#">Regístrate Ahora</a>
+    <a href="#" class="btn btn-success">Regístrate Ahora</a>
 </section>
-
-
 {% endblock %}
