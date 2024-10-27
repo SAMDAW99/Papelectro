@@ -15,6 +15,60 @@ Los usuarios podrán realizar búsquedas avanzadas utilizando palabras clave, ca
 ### Gestión de Usuarios y Roles
 Se implementarán diferentes niveles de acceso basados en roles, lo que permitirá a los usuarios pertenecer a grupos según su empresa o cargo, con acceso limitado o completo a funciones y documentos.
 
+
+# Mapa de Navegación de Papelectro
+
+## 1. Pantalla de Inicio / Home
+- **Banner de Bienvenida**
+  - Texto motivacional y llamado a la acción.
+  - Botón: **Descubre más** (enlace a la sección de características).
+- **Sección de Características**
+  - Funcionalidades principales de la plataforma:
+    - **Almacenamiento Seguro**: Acceso y seguridad para documentos.
+    - **Búsqueda Inteligente**: Filtrado avanzado y por palabra clave.
+    - **Planes Personalizados**: Selección de plan de acuerdo a necesidades.
+- **Sección CTA (Call to Action)**
+  - **Botón de Registro**: Para invitar a nuevos usuarios a crear una cuenta.
+- **Pie de Página**
+  - Derechos de autor y enlaces legales (Aviso de privacidad, Términos y condiciones).
+
+---
+
+## 2. Mapa de Navegación Principal
+
+1. ### Dashboard
+   - **Resumen** de archivos recientes y notificaciones.
+   - **Acceso directo** a búsqueda, favoritos y papelera.
+
+2. ### Documentos
+   - **Mis Documentos**: Visualización de archivos personales.
+   - **Compartidos Conmigo**: Archivos compartidos por otros usuarios.
+   - **Favoritos**: Documentos marcados para acceso rápido.
+
+3. ### Búsqueda Inteligente
+   - Campo de **búsqueda rápida** disponible en todas las pantallas.
+   - **Filtrado avanzado** por nombre, etiquetas o palabras clave.
+
+4. ### Papelera
+   - Visualización de **documentos eliminados**.
+   - Opciones para **restaurar** o **eliminar permanentemente**.
+
+5. ### Configuración de Cuenta y Suscripción
+   - **Cuenta personal**: Actualización de datos personales.
+   - **Suscripción**: Configuración y detalles de pago.
+   - **Notificaciones y permisos** de usuario.
+
+6. ### Soporte y Ayuda
+   - Guías de uso y preguntas frecuentes.
+   - **Acceso al soporte técnico**.
+
+---
+
+## Jerarquía de Navegación
+La barra de navegación superior contiene accesos directos a las secciones clave:
+- **Inicio**, **Documentos**, **Búsqueda**, **Papelera** y **Configuración**.
+- **Botón de Cargar Archivo**: Un botón resaltado para subir documentos rápidamente.
+
 ### Planes de Suscripción
 Papelectro implementa un modelo de negocio basado en suscripciones, donde las empresas pagarán una cuota mensual o anual para acceder al servicio, con diferentes niveles de almacenamiento y funcionalidades según el plan contratado.
 
