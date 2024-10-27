@@ -14,11 +14,9 @@
 <body>
   <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand text-light" href="#"><h1 class="title">PAPELECTRO</h1></a>
-      <!-- Usar d-flex en el navbar para mantener flexibilidad -->
+      <a class="navbar-brand text-light" href=".."><h1 class="title">PAPELECTRO</h1></a>
       <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <!-- Centrar la lista con flex y auto margin-->
-        <ul class="navbar-nav mb-2 mb-lg-0 ">
+        <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="#" tabindex="-1">Ver planes</a>
           </li>
@@ -27,15 +25,14 @@
           </li>
         </ul>
       </div>
-      
-      <button type="button" class="btn btn-outline-success mx-5">Login</button>
-
+      <a href="{% url 'login' %}" class="btn btn-outline-success">login</a>
     </div>
   </nav>
-  
 
-    {% block general %}
-    {%  endblock %}
+  <div class="container w-75 mt-5 costum-margin" > <!-- Added inline margin for more space -->
+      {% block general %}
+      {% endblock %}
+  </div>
 </body>
 <footer>
   <p>&copy; 2024 Papelectro. Todos los derechos reservados.</p>

@@ -8,6 +8,36 @@
 
 }
 
+/* main/css/styles.css */
+.sidebar {
+  background-color: chartreuse;
+  position: fixed;
+  top: 80px; /* Para que no se superponga al navbar */
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Colocarlo por encima de otros elementos */
+  height: calc(100vh - 56px); /* Resto de la altura de la ventana */
+  padding: 60px 0 0; /* Espaciado para el contenido */
+}
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+.sidebar .nav-link.active {
+  color: #007bff; /* Color para el enlace activo */
+}
+
+.container-fluid {
+
+  margin-top: 100px;
+  
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.69);
+  margin: 10px auto auto;
+}
+
 nav a {
   margin: 0 15px;
   font-weight: 600;
@@ -99,6 +129,7 @@ body {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+  color: black
 }
 
 .btn-outline-success:hover {

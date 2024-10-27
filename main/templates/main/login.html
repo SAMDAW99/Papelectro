@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block general %}
+    <!-- Contenedor principal con margen superior -->
+    <div class="container w-50 mt-4">
+        <!-- Tarjeta con cuerpo -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Título de la tarjeta -->
+                <h2 class="card-title">Login</h2>
+                <!-- Formulario de login con método POST y acción dinámica que incluye la URL de redirección -->
+                <form method="post" action="{{ login_url_with_next }}">
+                    {% csrf_token %}
+                    <!-- Representación del formulario como párrafos -->
+                    {{ form.as_p }}
+                    <!-- Botón para enviar el formulario -->
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
