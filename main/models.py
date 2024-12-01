@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import models
 
 
@@ -17,6 +17,7 @@ class Archivo(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     directorio = models.ForeignKey(Directorio, null=True, blank=True, related_name='archivos', on_delete=models.CASCADE)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
+    grupo = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL)  # Asociar archivo a un grupo
 
     @property
     def tipo(self):

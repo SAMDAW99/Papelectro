@@ -220,6 +220,17 @@ nav a {
 }
 
 
+#advancedFilter {
+  position: absolute; /* Hace que el formulario se superponga */
+  margin: 0 auto;
+  width: 50%;
+  z-index: 1050; 
+  background: rgba(0, 0, 0, 0); 
+  padding: 15px;
+  animation: fadeIn 0.3s ease-in-out; /* Transición suave */
+}
+
+
 .btn-no-adjust {
   height: 40px;  /* Set a fixed height */
   display: flex;

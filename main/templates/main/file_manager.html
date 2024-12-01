@@ -1,9 +1,70 @@
 {% extends 'main/admin_dashboard.html' %}
-
+{% load static %}
 {% block content %}
 <div class="caja d-flex">
     <h1>Mis Archivos</h1>
-    <div class="dropdown ml-auto">
+    <nav class="navbar navbar-light d-flex ml-auto">                    
+        <div class="d-flex align-items-right">
+            <a href="{% url 'pricing' %}" class="btn btn-dark p-2 mx-2" type="button">Mejorar plan</a> 
+            <button class="btn btn-light p-2 mx-2" type="button">
+                <i class="fas fa-info-circle"></i>
+            </button>
+            <button class="btn btn-light p-2 mx-2" type="button">
+                <i class="fas fa-tasks"></i>
+            </button>
+            <button class="btn btn-light pl-2 ml-2" type="button">
+                <i class="fas fa-user-circle"></i>
+            </button>
+        </div>        
+    </nav>
+    
+      </div>
+<div class='nav d-flex justify-content-between mt-4'>
+        <!-- Botón de Filtro -->
+        <div class="text-end mb-3">
+            <button class="btn text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilter" aria-expanded="false" aria-controls="advancedFilter">
+                <i class="fas fa-filter"></i> 
+            </button>
+        </div>
+
+        <!-- Formulario Desplegable -->
+        <div class="collapse " id="advancedFilter">
+            <div class="card card-body shadow-lg">
+                <form method="get" action="" class="col-g-3">
+                    <div >
+                        <label for="search" class="form-label"><i class="fas fa-search"></i> Palabra clave</label>
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Buscar por nombre" value="{{ search_query }}">
+                    </div>
+                    <div >
+                        <label for="tipo" class="form-label"><i class="fas fa-file"></i> Tipo de archivo</label>
+                        <select id="tipo" name="tipo" class="form-select">
+                            <option value="">Todos</option>
+                            <option value="image" {% if tipo_archivo == 'image' %}selected{% endif %}>Imágenes</option>
+                            <option value="video" {% if tipo_archivo == 'video' %}selected{% endif %}>Videos</option>
+                            <option value="pdf" {% if tipo_archivo == 'pdf' %}selected{% endif %}>PDF</option>
+                            <option value="text" {% if tipo_archivo == 'text' %}selected{% endif %}>Texto</option>
+                            <option value="documento" {% if tipo_archivo == 'documento' %}selected{% endif %}>Documentos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="fecha_inicio" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha desde</label>
+                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="{{ fecha_inicio }}">
+                    </div>
+                    <div>
+                        <label for="fecha_fin" class="form-label"><i class="fas fa-calendar-check"></i> Fecha hasta</label>
+                        <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ fecha_fin }}">
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Aplicar
+                        </button>
+                        <a href="{% url 'file_manager' %}" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Limpiar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
         <button class="btn btn-outline-dark dropdown-toggle btn-no-adjust" type="button" id="nuevoMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-plus"></i> Nuevo
         </button>
@@ -25,8 +86,6 @@
             {% endif %}
         </div>
     </div>
-</div>
-
 <div class="mt-4">
     <!-- Botón para regresar al directorio padre si existe -->
     {% if parent_directorio %}
@@ -89,5 +148,7 @@
             <p class="alert alert-info">No hay archivos en esta ubicación.</p>
         {% endfor %}
     </ul>
+    <script src="{% static 'JS/filtros.js' %}"></script>
+
 </div>
 {% endblock %}

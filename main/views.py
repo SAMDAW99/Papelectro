@@ -13,7 +13,6 @@ from django.contrib import messages
 from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 import os
-from django.http import JsonResponse
 from django.db import transaction
 from django.db.models import Q
 import mimetypes
@@ -122,7 +121,7 @@ class GraciasContactoView(View):
 class ArchivoUploadView(LoginRequiredMixin, CreateView):
     model = Archivo
     template_name = 'main/subir_archivo.html'
-    fields = ['archivo', 'nombre'] 
+    fields = ['archivo', 'nombre']
 
     def form_valid(self, form):
         # Start a transaction to ensure data consistency
@@ -135,6 +134,12 @@ class ArchivoUploadView(LoginRequiredMixin, CreateView):
             if directorio_actual_pk:
                 directorio_actual = get_object_or_404(Directorio, pk=directorio_actual_pk)
                 form.instance.directorio = directorio_actual
+
+            # Automatically assign the user's group to the file
+            user_group = self.request.user.groups.first()  # Get the first group the user belongs to
+            default_group = Group.objects.get(name='DefaultGroup')  # Example default group
+            form.instance.grupo = user_group if user_group else default_group
+
 
             return super().form_valid(form)
 
@@ -150,53 +155,96 @@ class ArchivoUploadView(LoginRequiredMixin, CreateView):
 class FileManagerView(ListView):
     model = Archivo
     template_name = "main/file_manager.html"
-    context_object_name = "archivos"  # Show list of files
+    context_object_name = "archivos"  # Mostrar lista de archivos
 
     def get_queryset(self):
-        """Filter files by current directory, search query, or show root files."""
-        search_query = self.request.GET.get('search', '')  # Get the search query from the URL
-        directorio_actual = self.kwargs.get('directorio_pk')
+        """
+        Filtra archivos y directorios basados en la jerarquía, búsqueda básica y filtros avanzados.
+        """
+        # Obtener parámetros básicos y avanzados
+        search_query = self.request.GET.get('search', '')
+        tipo_archivo = self.request.GET.get('tipo', '')  # Tipo de archivo para el filtro avanzado
+        fecha_inicio = self.request.GET.get('fecha_inicio', '')
+        fecha_fin = self.request.GET.get('fecha_fin', '')
+        directorio_actual = self.kwargs.get('directorio_pk', None)
 
-        # Initialize the queryset for archivos (files) and directorios (directories)
-        archivos = Archivo.objects.all()
-        directorios = Directorio.objects.all()
+        # Filtrar archivos y directorios del usuario
+        archivos = Archivo.objects.filter(propietario=self.request.user)
+        directorios = Directorio.objects.filter(propietario=self.request.user)
 
-        archivos = archivos.filter(propietario=self.request.user)
-        directorios = directorios.filter(propietario=self.request.user)
+        if directorio_actual:
+            # Filtrar por el directorio actual
+            archivos = archivos.filter(directorio_id=directorio_actual)
+            directorios = directorios.filter(parent_id=directorio_actual)
+        else:
+            # Mostrar archivos y directorios en la raíz
+            archivos = archivos.filter(directorio__isnull=True)
+            directorios = directorios.filter(parent__isnull=True)
 
+        # Filtro de búsqueda básica
         if search_query:
-            # Apply search filter on both files and directories
-            archivos = archivos.filter(Q(nombre__icontains=search_query))
-            directorios = directorios.filter(Q(nombre__icontains=search_query))
+            archivos = archivos.filter(nombre__icontains=search_query)
+            directorios = directorios.filter(nombre__icontains=search_query)
+
+        # Filtro avanzado: tipo de archivo
+        if tipo_archivo:
+            if tipo_archivo == 'documento':
+                archivos = archivos.filter(Q(archivo__icontains='.pdf') | Q(archivo__icontains='.txt'))
+            elif tipo_archivo == 'image':
+                archivos = archivos.filter(
+                    Q(archivo__icontains='.jpg') | Q(archivo__icontains='.jpeg') |
+                    Q(archivo__icontains='.png') | Q(archivo__icontains='.gif')
+                )     
+            elif tipo_archivo == 'video':
+                archivos = archivos.filter(
+                    Q(archivo__icontains='.mp4') | Q(archivo__icontains='.ogg') |
+                    Q(archivo__icontains='.webm'))
+            elif tipo_archivo == 'text':
+                archivos = archivos.filter(
+                    Q(archivo__icontains='.txt') | Q(archivo__icontains='.log') |
+                    Q(archivo__icontains='.docx') 
+                )   
+            elif tipo_archivo == 'pdf':
+                archivos = archivos.filter(archivo__icontains='.pdf')
+
+        # Filtro avanzado: rango de fechas
+        if fecha_inicio:
+            archivos = archivos.filter(fecha_creacion__gte=fecha_inicio)
+        if fecha_fin:
+            archivos = archivos.filter(fecha_creacion__lte=fecha_fin)
 
         return archivos, directorios
 
     def get_context_data(self, **kwargs):
+        """
+        Añade información de contexto para el renderizado.
+        """
         context = super().get_context_data(**kwargs)
-        directorio_actual = self.kwargs.get('directorio_pk')
+        directorio_actual = self.kwargs.get('directorio_pk', None)
 
-        # Get the list of archivos and directorios from the queryset
+        # Obtener archivos y directorios del método get_queryset
         archivos, directorios = self.get_queryset()
 
+        # Manejo de jerarquía actual
         if directorio_actual:
-            archivos = archivos.filter(directorio_id=directorio_actual, propietario=self.request.user)
-            directorios = directorios.filter(parent_id=directorio_actual, propietario=self.request.user)          
-            # Get current directory details
-            directorio_actual = get_object_or_404(Directorio, pk=directorio_actual, propietario=self.request.user)
-            context['directorio_actual'] = directorio_actual
-            context['parent_directorio'] = directorio_actual.parent  # For backward navigation
-            context['directorios'] = directorios
-            context['archivos'] = archivos
+            directorio_actual_obj = get_object_or_404(Directorio, pk=directorio_actual, propietario=self.request.user)
+            context['directorio_actual'] = directorio_actual_obj
+            context['parent_directorio'] = directorio_actual_obj.parent
         else:
-            archivos = archivos.filter(directorio__isnull=True, propietario=self.request.user)
-            directorios = directorios.filter(parent__isnull=True, propietario=self.request.user)
-
             context['directorio_actual'] = None
-            context['directorios'] = directorios
-            context['archivos'] = archivos
 
-        context['search_query'] = self.request.GET.get('search', '')  # Retain the search query in the context
+        context['archivos'] = archivos
+        context['directorios'] = directorios
+
+        # Parámetros para el filtro avanzado
+        context['search_query'] = self.request.GET.get('search', '')
+        context['tipo_archivo'] = self.request.GET.get('tipo', '')
+        context['fecha_inicio'] = self.request.GET.get('fecha_inicio', '')
+        context['fecha_fin'] = self.request.GET.get('fecha_fin', '')
+
         return context
+
+
 
 
 
@@ -377,3 +425,9 @@ class RegisterPlanView(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, "Registration failed. Please correct the errors below.")
         return super().form_invalid(form)
+    
+class CreateGroupView(CreateView):
+    model = Group
+    template_name = 'create_group.html'
+    fields = ['name']
+    success_url = reverse_lazy('manage_groups')
