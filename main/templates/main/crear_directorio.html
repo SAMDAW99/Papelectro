@@ -1,0 +1,15 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<h1>Crear Nuevo Directorio</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="directorio_pk" value="{{ directorio_actual.pk }}">
+    <button type="submit">Create Directory</button>
+</form>
+
+
+<a href="{% url 'file_manager' %}" class="btn btn-secondary mt-3">Cancelar</a>
+{% endblock %}

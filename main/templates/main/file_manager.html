@@ -1,0 +1,93 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<div class="caja d-flex">
+    <h1>Mis Archivos</h1>
+    <div class="dropdown ml-auto">
+        <button class="btn btn-outline-dark dropdown-toggle btn-no-adjust" type="button" id="nuevoMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-plus"></i> Nuevo
+        </button>
+        <div class="dropdown-menu" aria-labelledby="nuevoMenu">
+            {% if directorio_actual == none %}
+            <a class="dropdown-item" href="{% url 'archivos-subir-none' %}">
+                <i class="fas fa-file-alt"></i> Archivo
+            </a>
+            <a class="dropdown-item" href="{% url 'crear-directorio-none' %}">
+                <i class="fas fa-folder-plus"></i> Directorio
+            </a>
+            {% else %}
+            <a class="dropdown-item" href="{% url 'archivos-subir' directorio_actual.pk %}">
+                <i class="fas fa-file-alt"></i> Archivo
+            </a>
+            <a class="dropdown-item" href="{% url 'crear-directorio' directorio_actual.pk %}">
+                <i class="fas fa-folder-plus"></i> Directorio
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <!-- Botón para regresar al directorio padre si existe -->
+    {% if parent_directorio %}
+        <a href="{% url 'directorios' parent_directorio.pk %}" class="btn btn-secondary mb-3">
+            <i class="fas fa-arrow-up"></i> Volver a {{ parent_directorio.nombre }}
+        </a>
+    {% else %}
+        <a href="{% url 'file_manager' %}" class="btn btn-secondary mb-3">
+            <i class="fas fa-arrow-up"></i> Volver a la raíz
+        </a>
+    {% endif %}
+
+    <!-- Lista de Directorios -->
+    <h2>Directorios</h2>
+    <ul class="list-group mb-4">
+        {% for directorio in directorios %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="{% url 'directorios' directorio.pk %}">
+                    <i class="fas fa-folder"></i> {{ directorio.nombre }}
+                    </a>
+                    <span class="badge badge-primary ml-2">{% with total_elements=directorio.subdirectorios.count|add:directorio.archivos.count %}
+                        {{ total_elements }}
+                    {% endwith %} elementos</span>
+                </div>
+                <form action="{% url 'borrar-directorio' directorio.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </li>
+        {% empty %}
+            <p class="alert alert-info">No hay directorios en esta ubicación.</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Lista de Archivos -->
+    <h2>Archivos</h2>
+    <ul class="list-group">
+        {% for archivo in archivos %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-file-alt"></i> {{ archivo.nombre }}</span>
+                <div>
+                    <a href="{% url 'detalle-archivo' archivo.pk %}" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{% url 'archivos-descargar' archivo.pk %}" class="btn btn-success btn-sm">
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <form action="{% url 'archivos-borrar' archivo.pk %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </li>
+        {% empty %}
+            <p class="alert alert-info">No hay archivos en esta ubicación.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

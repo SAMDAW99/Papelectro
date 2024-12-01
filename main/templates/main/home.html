@@ -4,34 +4,34 @@
 <section class="banner mt-5 text-center">
     <h2>Olvida el caos, bienvenido al orden digital</h2>
     <p>Organiza, almacena y accede a tus documentos desde cualquier lugar. Simplifica la gestión documental de tu empresa con <ins class='title'>Papelectro.</ins></p>
-    <a href="#features" class="btn btn-primary">Descubre más</a>
+    <a href="#features" class="btn btn-success">Descubre más</a>
 </section>
 
 <section class="features my-5" id="features">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4 ">
                 <h3>Almacenamiento Seguro</h3>
                 <p>Sube, organiza y descarga archivos de forma segura en nuestra plataforma, con la tranquilidad de que tus datos están protegidos.</p>
-                <!-- Imagen adaptada con Bootstrap -->
-                <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded" alt="Almacenamiento Seguro">
+                <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Almacenamiento Seguro">
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4">
                 <h3>Búsqueda Inteligente</h3>
                 <p>Encuentra rápidamente los documentos que necesitas con nuestro sistema de búsqueda avanzada por palabras clave, categorías o fechas.</p>
-                <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded" alt="Busqueda Inteligente">
+                <img src="{% static 'main/img/carrousel/busqueda_inteligente.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Búsqueda Inteligente">
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4 ">
                 <h3>Planes Personalizados</h3>
                 <p>Elige el plan de almacenamiento que mejor se adapte a las necesidades de tu empresa, con opciones escalables según el crecimiento.</p>
+                <img src="{% static 'main/img/carrousel/elige_tu_plan.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Planes Personalizados">
             </div>
         </div>
     </div>
 </section>
 
-<section class="cta text-center py-5 bg-light">
+<section class="cta text-center py-5 bg-light text-dark">
     <h2>Empieza Hoy Mismo</h2>
     <p>Optimiza la gestión de documentos de tu empresa con Papelectro. ¡Regístrate y prueba nuestras funcionalidades avanzadas!</p>
-    <a href="#" class="btn btn-success">Regístrate Ahora</a>
+    <a href="#" class="btn btn-dark">Regístrate Ahora</a>
 </section>
 {% endblock %}

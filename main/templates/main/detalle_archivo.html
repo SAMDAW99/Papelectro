@@ -1,0 +1,38 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<h1>Detalles del Archivo</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ archivo.nombre }}</h5>
+        <p class="card-text">Fecha de Creación: {{ archivo.fecha_creacion }}</p>
+        <p class="card-text">Propietario: {{ archivo.propietario.username }}</p>
+        
+        <!-- Display the file based on its type -->
+        {% if archivo.tipo == 'image' %}
+            <img src="{{ archivo.archivo.url }}" alt="{{ archivo.nombre }}" class="img-fluid">
+        
+        {% elif archivo.tipo == 'video' %}
+            <video class="w-100" height="400" controls>
+                <source src="{{ archivo.archivo.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        
+        {% elif archivo.tipo == 'pdf' %}
+            <a href="{% url 'export-pdf' archivo.pk %}" class='btn btn-outline-info mt-3'> ver pdf </a>
+        
+        {% elif archivo.tipo == 'text' %}
+            <pre>{{ archivo.archivo.read }}</pre>
+        
+        {% else %}
+            <p>Este archivo no se puede mostrar en línea.</p>
+        {% endif %}
+        
+        <!-- Download button -->
+        <a href="{% url 'archivos-descargar' archivo.pk %}" class="btn btn-success mt-3">
+            Descargar Archivo
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,48 +1,164 @@
-.title {
+/* Tipografía general */
+body, .text, .card-title {
   font-family: "Mitr", sans-serif;
-  font-weight: 500;
   font-style: normal;
+}
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.fs-1 {
+  color: #1f7e4d;
+}
+
+.title {
+  font-weight: 500;
   font-size: 6vh;
-  color: greenyellow;
+  color: #25D366;
   text-decoration: none;
-
 }
 
-/* main/css/styles.css */
+.title {
+  font-weight: 500;
+  font-size: 6vh;
+  color: #0f582a;
+  text-decoration: none;
+}
+
+.card-title {
+  color: #2c7744;
+}
+
+/* Fondo y general */
+body {
+  background: linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0.392)), url("../img/background.jpg") center/cover fixed;
+  color: black;
+}
+
+.btn-outline-success {
+  color: rgb(110, 163, 29);
+  border-color: rgb(209, 247, 152);
+}
+
+.btn-outline-success:hover {
+  background-color: rgb(186, 250, 155);
+}
+
+/* Sidebar */
 .sidebar {
-  background-color: chartreuse;
+  width: 18.7%;
+  background-color: #25D366;
   position: fixed;
-  top: 80px; /* Para que no se superponga al navbar */
-  bottom: 0;
-  left: 0;
-  z-index: 100; /* Colocarlo por encima de otros elementos */
-  height: calc(100vh - 56px); /* Resto de la altura de la ventana */
-  padding: 60px 0 0; /* Espaciado para el contenido */
+  height: 100vh;
+  padding-top: 10px;
+  z-index: 1;
 }
+
 .sidebar .nav-link {
   font-weight: 500;
-  color: #333;
+  color: #ffffffbc;
+  transition: background-color 0.3s, color 0.3s;
 }
+
+.contact-section {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+.form-container label {
+  color: #6c757d;
+}
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
 .sidebar .nav-link.active {
-  color: #007bff; /* Color para el enlace activo */
+  color: #ffffff;
+  background-color: #3351356a;
+  border-radius: 5px;
 }
 
-.container-fluid {
-
-  margin-top: 100px;
-  
-}
-
-.card {
-  background-color: rgba(255, 255, 255, 0.69);
-  margin: 10px auto auto;
+/* Navbar */
+.navbar {
+  z-index: 2;
 }
 
 nav a {
-  margin: 0 15px;
   font-weight: 600;
 }
 
+/* Sección de precios */
+.pricing-section {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 40px 20px;
+}
+
+.pricing-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 10px;
+  margin: 10px auto;
+  background-color: rgba(255, 255, 255, 0.69);
+}
+
+.pricing-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: 1.5rem;
+  background-color:#2c7744;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.price {
+  color:#1f7e4d;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  font-size: 1rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.features li i {
+  color: #28a745;
+  margin-right: 0.5rem;
+}
+
+.btn {
+  border-radius: 50px;
+  font-size: 1rem;
+}
+
+/* Sección de banner */
 .banner {
   padding: 80px 20px;
   text-align: center;
@@ -59,6 +175,7 @@ nav a {
   margin-bottom: 20px;
 }
 
+/* Sección de características */
 .features {
   display: flex;
   justify-content: space-around;
@@ -85,6 +202,7 @@ nav a {
   margin-bottom: 15px;
 }
 
+/* Sección de CTA */
 .cta {
   text-align: center;
   padding: 40px;
@@ -94,49 +212,45 @@ nav a {
 
 .cta a {
   background-color: #22995b;
-  color: #fff;
   padding: 15px 30px;
   text-decoration: none;
   font-weight: 600;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+}
+
+
+.btn-no-adjust {
+  height: 40px;  /* Set a fixed height */
+  display: flex;
+  align-items: center;  /* Vertically center the content */
+  justify-content: left; 
+  padding: 0 10px;  /* Add padding to the sides of the button */
+  margin-left: 0;
+}
+
+.btn-no-adjust i {
+  margin-right: 5px;  /* Space between the icon and the text */
 }
 
 .cta a:hover {
   background-color: #1f7e4d;
 }
 
+/* Footer */
 footer {
   background-color: #22995b;
   color: #fff;
   text-align: center;
   padding: 20px 0;
+  margin-top: 100px;
 }
 
 footer p {
   margin: 0;
 }
 
-
-.text {
-  font-family: "Mitr", sans-serif;
-  font-style: normal;
-}
-
-
-body {
-  background: linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0.392)), url("../img/background.jpg");
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  color: black
-}
-
-.btn-outline-success:hover {
-  background-color: greenyellow;
-}
-
-.btn-outline-success {
-  color: rgb(110, 163, 29);
-  border-color: rgb(131, 197, 31);
+/* Imagen */
+.img-fluid {
+  height: 150px;
 }

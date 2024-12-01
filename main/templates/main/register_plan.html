@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% block general %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="card p-4 shadow">
+                <h3 class="text-center">Registro del plan {{ plan.name }}</h3>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="alert alert-danger mt-2">
+                            {% for error in form.username.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="alert alert-danger mt-2">
+                            {% for error in form.password1.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="alert alert-danger mt-2">
+                            {% for error in form.password2.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+              
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+
+                {% if messages %}
+                    <div class="alert alert-danger mt-3">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

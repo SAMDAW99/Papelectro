@@ -1,0 +1,22 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<h1>Subir Archivo</h1>
+
+{% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="mt-4 p-4 shadow rounded bg-light">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="directorio_pk" value="{{ directorio_actual.pk }}">
+    <button type="submit" class="btn btn-primary btn-lg">
+        <i class="bi bi-upload"></i> Subir Archivo
+    </button>
+</form>
+{% endblock %}

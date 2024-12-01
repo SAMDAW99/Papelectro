@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import *
+from main.models import *
 
 USER_TYPE_CHOICES = [
     ('user', 'User'),
@@ -35,3 +36,40 @@ class LoginForm(AuthenticationForm):
                 raise forms.ValidationError("No estás autorizado para iniciar sesión como personal.")
         
         return cleaned_data
+
+
+class RegistrarseForm(UserCreationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+        label='Usuario'
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+        label='Contraseña'
+    )
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+        label='Repetir contraseña'
+    )
+  
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+
+
+        if password1 != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden.")
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        if commit:
+            user.save()
+
+        return user

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load static i18n %}
+{% block general %}
+<div class="container-fluid d-flex flex-column justify-content-center min-vh-100">
+  <h1 class="fs-1 text-center fw-normal">Lista de Precios</h1>
+  <div class="row w-100 d-flex justify-content-center">
+    {% for plan in plans %}
+    <div class="col-sm-12 col-md-4 mt-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h3 class="card-title">{{ plan.name }}</h3>
+          <h2 class="fs-1 fw-lighter text-primary">{{ plan.price }}€</h2>
+          <p class="card-text">{{ plan.description }}</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item">{{ plan.features }}</li>
+          </ul>
+          {% if forloop.first %}
+            <a href="{% url 'register_plan' %}" class="btn btn-primary w-100">Register for {{ plan.name }}</a>
+          {% else %}
+            <button class="btn btn-secondary w-100 disabled">Available Soon</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

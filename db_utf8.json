@@ -1,0 +1,80 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$ZBi1dy5B8FqLa4B28O3DkG$w8aJwASWQcIvgrsrFR9jb9WPA7GAd/a6+LeDP37uDwc=",
+        "last_login": "2024-11-16T13:19:59.768Z",
+        "is_superuser": true,
+        "username": "iesmartinezm",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-10-01T14:38:23.365Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "4ce41n3u2eqn00pqg5uf39x105b27knm",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyFAgYpH734DYXdZqRpISnsy_rtt0oOeJpn3Zt4ipnUpce15jhOJi9Di9NtBwmeuO6BHqvcmsdVlnkDuijxol7dG-XU93L-DknrZ1meTQwDIpCExgbPe8ECWEa3nMLLTwTINQB62HDMEDBpZDcqQJeXE5wsdkjku:1tCIiV:1O0I6WrswFIyLNucp6SbkpQMT08UrdsF9RX1h6MxruM",
+        "expire_date": "2024-11-30T13:19:59.778Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "egbjei8blqu637tc9h4vl2n9n59xckih",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyFAgYpH734DYXdZqRpISnsy_rtt0oOeJpn3Zt4ipnUpce15jhOJi9Di9NtBwmeuO6BHqvcmsdVlnkDuijxol7dG-XU93L-DknrZ1meTQwDIpCExgbPe8ECWEa3nMLLTwTINQB62HDMEDBpZDcqQJeXE5wsdkjku:1sve2B:zp6I7K430Oj8Y8gMRx-jwAao-aszHhsfmnOk9jzzl7o",
+        "expire_date": "2024-10-15T14:39:27.383Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "w5c30d2bta3hih84dkvsc7ilnfz98t50",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyFAgYpH734DYXdZqRpISnsy_rtt0oOeJpn3Zt4ipnUpce15jhOJi9Di9NtBwmeuO6BHqvcmsdVlnkDuijxol7dG-XU93L-DknrZ1meTQwDIpCExgbPe8ECWEa3nMLLTwTINQB62HDMEDBpZDcqQJeXE5wsdkjku:1t56Jj:E_D45uWhwVSqYvqPN9XevTxU0R8fohYKs53UWVT1ZEk",
+        "expire_date": "2024-11-10T16:40:39.823Z"
+    }
+},
+{
+    "model": "main.subscriptionplan",
+    "pk": 1,
+    "fields": {
+        "name": "Básico",
+        "price": "0",
+        "description": "Plan basico para usuarios individuales.",
+        "features": "Almacenamiento de 10GB,Acceso bßsico a documentos,1 usuario",
+        "button_class": "btn-outline-primary",
+        "order": 1
+    }
+},
+{
+    "model": "main.subscriptionplan",
+    "pk": 2,
+    "fields": {
+        "name": "Pro",
+        "price": "19.99",
+        "description": "Plan ideal para equipos pequenos.",
+        "features": "Almacenamiento de 100GB,Acceso avanzado a documentos,Hasta 5 usuarios",
+        "button_class": "btn-primary",
+        "order": 2
+    }
+},
+{
+    "model": "main.subscriptionplan",
+    "pk": 3,
+    "fields": {
+        "name": "Premium",
+        "price": "29.99",
+        "description": "Plan completo para grandes equipos.",
+        "features": "Almacenamiento ilimitado,Acceso premium a todos los documentos,Usuarios ilimitados",
+        "button_class": "btn-success",
+        "order": 3
+    }
+}
+]
