@@ -6,15 +6,13 @@
     <nav class="navbar navbar-light d-flex ml-auto">                    
         <div class="d-flex align-items-right">
             <a href="{% url 'pricing' %}" class="btn btn-dark p-2 mx-2" type="button">Mejorar plan</a> 
-            <button class="btn btn-light p-2 mx-2" type="button">
+            <a class="btn btn-light pl-2 ml-2" type="button" href="{% url 'info' %}">
                 <i class="fas fa-info-circle"></i>
-            </button>
-            <button class="btn btn-light p-2 mx-2" type="button">
-                <i class="fas fa-tasks"></i>
-            </button>
-            <button class="btn btn-light pl-2 ml-2" type="button">
+            </a>
+            
+            <a class="btn btn-light pl-2 ml-2" type="button" href="{% url 'perfil_usuario' %}">
                 <i class="fas fa-user-circle"></i>
-            </button>
+            </a>
         </div>        
     </nav>
     
@@ -23,7 +21,7 @@
         <!-- Botón de Filtro -->
         <div class="text-end mb-3">
             <button class="btn text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilter" aria-expanded="false" aria-controls="advancedFilter">
-                <i class="fas fa-filter"></i> 
+                Filtrar <i class="fas fa-filter"></i> 
             </button>
         </div>
 
@@ -36,7 +34,7 @@
                         <input type="text" id="search" name="search" class="form-control" placeholder="Buscar por nombre" value="{{ search_query }}">
                     </div>
                     <div >
-                        <label for="tipo" class="form-label"><i class="fas fa-file"></i> Tipo de archivo</label>
+                        <label for="tipo" class="form-label mt-2"><i class="fas fa-file"></i> Tipo de archivo</label>
                         <select id="tipo" name="tipo" class="form-select">
                             <option value="">Todos</option>
                             <option value="image" {% if tipo_archivo == 'image' %}selected{% endif %}>Imágenes</option>
@@ -54,7 +52,7 @@
                         <label for="fecha_fin" class="form-label"><i class="fas fa-calendar-check"></i> Fecha hasta</label>
                         <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ fecha_fin }}">
                     </div>
-                    <div class="col-12 text-end">
+                    <div class="col-12 text-end mt-2">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i> Aplicar
                         </button>

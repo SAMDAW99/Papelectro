@@ -17,6 +17,28 @@ body, .text, .card-title {
   text-transform: uppercase;
 }
 
+/* Primary Button Styles */
+.btn-primary {
+  font-weight: bold;
+  background-color: #800080; /* Purple background */
+  color: #ffffff; /* White text for contrast */
+  text-transform: uppercase; /* Uppercase text */
+  border: none; /* Optional: Remove border if needed */
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #660066; /* Darker purple for hover/focus state */
+  color: #ffffff; /* Ensure text remains visible */
+}
+
+/* Primary Text Styles */
+.txt-primary {
+  font-weight: bold;
+  color: #800080; /* Purple text */
+  text-transform: uppercase;
+}
+
 .fs-1 {
   color: #1f7e4d;
 }

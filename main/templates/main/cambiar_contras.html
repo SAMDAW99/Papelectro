@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% load static%}
+{% block general %}
+    <!-- Main container -->
+    <div class="container mt-4 d-flex justify-content-center">
+        <!-- Card container -->
+        <div class="card w-50 m-auto p-4 shadow">
+            <!-- Key icon -->
+            <div class="text-center">
+                <img src="{% static 'main/icons/password.png' %}" alt="Key Icon" width="60" height="60">
+            </div>
+            
+            <!-- Title -->
+            <h2 class="card-title text-center mb-4">Cambiar Contraseña</h2>
+
+            <!-- Form -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_old_password" class="form-label">Contraseña actual</label>
+                    <input type="password" name="old_password" id="id_old_password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="id_new_password1" class="form-label">Nueva contraseña</label>
+                    <input type="password" name="new_password1" id="id_new_password1" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="id_new_password2" class="form-label">Confirmar nueva contraseña</label>
+                    <input type="password" name="new_password2" id="id_new_password2" class="form-control">
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between flex-column mt-2">
+                    <button type="submit" class="btn btn-primary w-100">Cambiar contraseña</button>
+                    <a href="{% url 'perfil_usuario' %}" class="btn btn-secondary w-100 mt-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

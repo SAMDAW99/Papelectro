@@ -25,6 +25,13 @@ urlpatterns = [
     path('archivos/subir/<int:directorio_pk>/', ArchivoUploadView.as_view(), name='archivos-subir'),
     path('archivos/subir/', ArchivoUploadView.as_view(), name='archivos-subir-none'),
     path("register-plan/", RegisterPlanView.as_view(), name="register_plan"),
+    path('perfil_usuario/nueva_tarjeta/', NuevaTarjeta.as_view(), name='nueva_tarjeta'),
+    path('perfil_usuario/<int:pk>/editar_tarjeta/', EditarTarjeta.as_view(), name='editar_tarjeta'),
+    path('perfil_usuario/<int:pk>/eliminar_tarjeta/', EliminarTarjeta.as_view(), name='eliminar_tarjeta'),
+    path('cambiar_contras/', CambiarContras.as_view(), name='cambiar_contras'),
+    path('perfil_usuario/editar_usuario/', EditarPerfil.as_view(), name='editar_usuario'),
+    path('perfil_usuario/', PerfilUsuario.as_view(), name='perfil_usuario'),
+    path('info/', InfoPageView.as_view(), name='info'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

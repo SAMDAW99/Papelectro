@@ -118,6 +118,7 @@ class GraciasContactoView(View):
         return render(request, 'main/gracias_contacto.html')
 
 
+
 class ArchivoUploadView(LoginRequiredMixin, CreateView):
     model = Archivo
     template_name = 'main/subir_archivo.html'
@@ -137,10 +138,9 @@ class ArchivoUploadView(LoginRequiredMixin, CreateView):
 
             # Automatically assign the user's group to the file
             user_group = self.request.user.groups.first()  # Get the first group the user belongs to
-            default_group = Group.objects.get(name='DefaultGroup')  # Example default group
-            form.instance.grupo = user_group if user_group else default_group
-
-
+            if user_group:
+                form.instance.grupo = user_group
+                
             return super().form_valid(form)
 
     def get_success_url(self):
@@ -150,6 +150,36 @@ class ArchivoUploadView(LoginRequiredMixin, CreateView):
             return reverse('directorios', kwargs={'directorio_pk': directorio_actual_pk})
         # If there's no directory, redirect to the file manager
         return reverse('file_manager')
+
+
+
+class PerfilUsuario(TemplateView):
+    template_name = 'main/perfil_usuario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        usuario = self.request.user
+        tarjetas_credito = usuario.tarjetacredito_set.all()
+
+        context['usuario'] = usuario
+        context['tarjetas_credito'] = tarjetas_credito
+        return context
+    
+class EditarPerfil(View):
+    template_name = 'main/editar_usuario.html'
+
+    def get(self, request):
+        form = UserForm(instance=request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = UserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('perfil_usuario'))
+        return render(request, self.template_name, {'form': form})
+
 
 
 class FileManagerView(ListView):
@@ -431,3 +461,45 @@ class CreateGroupView(CreateView):
     template_name = 'create_group.html'
     fields = ['name']
     success_url = reverse_lazy('manage_groups')
+    
+    
+class NuevaTarjeta(CreateView):
+    model = TarjetaCredito
+    form_class = TarjetaCreditoForm
+    template_name = 'main/editar_tarjeta.html'
+    success_url = reverse_lazy('perfil_usuario')
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+    
+class EditarTarjeta(UpdateView):
+    model = TarjetaCredito
+    form_class = TarjetaCreditoForm
+    template_name = 'main/editar_tarjeta.html'
+    success_url = reverse_lazy('perfil_usuario')
+    
+    
+class EliminarTarjeta(DeleteView):
+    model = TarjetaCredito
+    template_name = 'main/eliminar_tarjeta.html'
+    success_url = reverse_lazy('perfil_usuario')
+
+
+class CambiarContras(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = 'main/cambiar_contras.html'
+    success_url = reverse_lazy('perfil_usuario')
+
+    def form_valid(self, form):
+        self.request.session['password_changed'] = True
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Change Password'
+        return context
+    
+
+class InfoPageView(TemplateView):
+    template_name = 'main/info.html'

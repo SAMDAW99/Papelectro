@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block general %}
+    <div class="container p-4">
+        <div class="card w-50 m-auto p-4">
+            <form method="post">
+                {% csrf_token %}
+                <img src="{% static 'main/icons/Credit-Card-Icons.png' %}" width="100%">
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> Por favor, corrija los siguientes errores.
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="numero_tarjeta">Número de Tarjeta</label>
+                    <input type="text" class="form-control" id="numero_tarjeta" name="numero_tarjeta" value="{{ form.numero_tarjeta.value }}">
+                    {% if form.numero_tarjeta.errors %}
+                        <small class="text-danger">{{ form.numero_tarjeta.errors }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="nombre_titular">Nombre del Titular</label>
+                    <input type="text" class="form-control" id="nombre_titular" name="nombre_titular" value="{{ form.nombre_titular.value }}">
+                    {% if form.nombre_titular.errors %}
+                        <small class="text-danger">{{ form.nombre_titular.errors }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="fecha_vencimiento">Fecha de Vencimiento</label>
+                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" value="{{ form.fecha_vencimiento.value }}">
+                    {% if form.fecha_vencimiento.errors %}
+                        <small class="text-danger">{{ form.fecha_vencimiento.errors }}</small>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+

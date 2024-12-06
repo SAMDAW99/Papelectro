@@ -94,3 +94,12 @@ class Documento(models.Model):
 class Configuracion(models.Model):
     clave = models.CharField(max_length=50, unique=True)
     valor = models.TextField()
+    
+class TarjetaCredito(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    numero_tarjeta = models.CharField(max_length=16)
+    nombre_titular = models.CharField(max_length=100)
+    fecha_vencimiento = models.DateField(max_length=10)
+
+    def __str__(self):
+        return self.numero_tarjeta

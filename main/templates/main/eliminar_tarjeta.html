@@ -1,0 +1,12 @@
+{% extends 'main/base.html'%}
+{% block general %}
+    <div class="container p-4">
+    <div class="card m-auto d-flex align-items-center">
+  <h1>Eliminar Tarjeta</h1>
+    <p>¿Estás seguro de que deseas eliminar esta tarjeta de credito?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar" class=" btn btn-danger">
+        <a href="{% url 'perfil_usuario' %}" class="btn btn-secondary">Cancelar</a>
+    </form></div></div>
+{% endblock %}

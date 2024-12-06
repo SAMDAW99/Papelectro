@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+
+{% block general %}
+<div class="container mt-5">
+    <!-- Título Principal -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Bienvenido a <strong>Papelectro</strong></h1>
+        <p class="lead text-muted">La solución ideal para la Gestión Electrónica de Documentos en tu empresa.</p>
+    </div>
+
+    <!-- Sección: Descripción del Proyecto -->
+    <section class="mb-5">
+        <h2 class="text-primary">¿Qué es Papelectro?</h2>
+        <p>
+            Papelectro es una plataforma diseñada para transformar la forma en que las empresas gestionan sus documentos. 
+            Con un sistema digital eficiente y seguro, reemplazamos el almacenamiento tradicional en papel, ofreciendo 
+            funcionalidades avanzadas como búsqueda inteligente, gestión de usuarios y planes de suscripción personalizados.
+        </p>
+    </section>
+
+    <!-- Sección: Funcionalidades Principales -->
+    <section class="mb-5">
+        <h2 class="text-primary">Funcionalidades Principales</h2>
+        <ul>
+            <li><strong>Almacenamiento y Gestión de Documentos:</strong> Organiza tus archivos en carpetas y accede a ellos desde cualquier lugar.</li>
+            <li><strong>Búsqueda Inteligente:</strong> Encuentra documentos rápidamente utilizando palabras clave, fechas o categorías.</li>
+            <li><strong>Gestión de Usuarios y Roles:</strong> Controla los niveles de acceso según el rol de cada usuario.</li>
+            <li><strong>Planes de Suscripción:</strong> Escoge el plan que mejor se adapte a tus necesidades.</li>
+        </ul>
+    </section>
+
+    <!-- Sección: Planes de Suscripción -->
+    <section class="mb-5">
+        <h2 class="text-primary">Planes de Suscripción</h2>
+        <p>
+            Papelectro ofrece diferentes niveles de almacenamiento y funcionalidades según el plan contratado.
+            Todos los pagos se gestionan de forma segura a través de <strong>PayPal</strong>.
+        </p>
+    </section>
+
+    <!-- Sección: Seguridad -->
+    <section class="mb-5">
+        <h2 class="text-primary">Seguridad</h2>
+        <p>
+            La seguridad es una prioridad en Papelectro. Implementamos cifrado de datos, autenticación segura y 
+            controles de acceso para garantizar que tu información esté protegida en todo momento.
+        </p>
+    </section>
+
+    <!-- Sección: Tecnologías Utilizadas -->
+    <section class="mb-5">
+        <h2 class="text-primary">Tecnologías Utilizadas</h2>
+        <ul>
+            <li><strong>Backend:</strong> Django</li>
+            <li><strong>Frontend:</strong> Bootstrap, HTML, CSS</li>
+            <li><strong>Base de Datos:</strong> PostgreSQL / SQLite3</li>
+            <li><strong>Infraestructura:</strong> Apache o AWS</li>
+            <li><strong>Almacenamiento:</strong> Sistema local o Amazon S3</li>
+        </ul>
+    </section>
+
+    <!-- Sección: Justificación del Proyecto -->
+    <section class="mb-5">
+        <h2 class="text-primary">¿Por qué Papelectro?</h2>
+        <p>
+            El almacenamiento físico de documentos es ineficiente y costoso. 
+            Papelectro optimiza este proceso mediante una plataforma digital segura y escalable, 
+            ayudando a las empresas a avanzar en su transformación digital.
+        </p>
+    </section>
+
+    <!-- Sección: Contacto -->
+    <section class="mb-5">
+        <h2 class="text-primary">¿Tienes preguntas? Contáctanos</h2>
+        <p>Para más información, escríbenos a: <a href="mailto:izer094@iesmartinezm.es">izer094@iesmartinezm.es</a></p>
+    </section>
+
+    <!-- Botón de regreso -->
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">Volver al Inicio</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block general %}
+    <!-- Contenedor principal con margen superior, centrado y usando flexbox -->
+    <div class="container mt-4 d-flex justify-content-center">
+        <!-- Tarjeta con ancho del 50% de su contenedor -->
+        <div class="card w-50 shadow-lg">
+            <div class="card-body">
+                <!-- Título de la tarjeta centrado y con estilo -->
+                <h2 class="card-title text-center mb-4">Editar Usuario</h2>
+
+                <!-- Imagen centrada dentro de la tarjeta -->
+                <div class="text-center mb-4">
+                    <img src="{% static 'main/icons/8801434.png'%}" alt="User Icon" width="80" height ="80">
+                </div>
+
+                <!-- Formulario para editar un producto -->
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+
+                    <!-- Iteración sobre los campos del formulario, excluyendo el campo de contraseña -->
+                    {% for field in form %}
+                        {% if field.name != 'password' %}
+                            <!-- Contenedor para cada campo con márgenes inferiores -->
+                            <div class="mb-3">
+                                <!-- Etiqueta del campo -->
+                                {{ field.label_tag }}
+                                <!-- Campo del formulario -->
+                                {{ field|add_class:"form-control" }}
+                                <!-- Mensaje de ayuda opcional -->
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Contenedor con márgenes superiores y alineación de elementos centrados -->
+                    <div class="d-flex justify-content-center">
+                        <!-- Botón de submit para enviar el formulario -->
+                        <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios</button>
+                    </div>
+                </form>
+
+                <!-- Contenedor con márgenes superiores y alineación de elementos centrados -->
+                <div class="d-flex justify-content-center mt-3">
+                    <!-- Enlace para cancelar la acción y volver atrás -->
+                    <a href="{% url 'perfil_usuario' %}" class="btn btn-secondary w-100">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

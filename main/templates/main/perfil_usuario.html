@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block general %}
+<div class="container mt-4 mb-4">
+    <div class="card">
+        <div class="card-body text-center">
+            <h1 class="card-title">Perfil de {{ usuario.username }}</h1>
+            <img src="{% static 'main/icons/8801434.png'%}" alt="User Icon" width="80" height ="80">
+            <p class="card-text">Nombre: {{ usuario.first_name }}</p>
+            <p class="card-text">Apellidos: {{ usuario.last_name }}</p>
+            <p class="card-text">Email: {{ usuario.email }}</p>
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <a type="button" class="btn btn-secondary btn-lg" href="{% url 'editar_usuario' %}">
+                    Editar perfil
+                </a>
+                <a type="button" class="btn btn-dark btn-lg" href="{% url 'cambiar_contras' %}">
+                    Cambiar Contraseña
+                </a>
+            </div>
+            <h2 class="mt-4">Tarjetas de Crédito</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Número de Tarjeta</th>
+                            <th>Titular</th>
+                            <th>Vencimiento</th>
+                              <th class="d-flex justify-content-center">
+                                  <a class="btn btn-secondary w-100" href="{% url 'nueva_tarjeta' %}">Añadir tarjeta</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tarjeta in tarjetas_credito %}
+                        <tr>
+                            <td>{{ tarjeta.numero_tarjeta }}</td>
+                            <td>{{ tarjeta.nombre_titular }}</td>
+                            <td>{{ tarjeta.fecha_vencimiento }}</td>
+                            <td class="d-flex justify-content-end">
+                                  <a class="btn btn-primary  ml-2" href="{% url 'editar_tarjeta' pk=tarjeta.pk %}">Editar</a>
+                                  <a class="btn btn-danger ml-2" href="{% url 'eliminar_tarjeta' pk=tarjeta.pk %}">Eliminar</a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr class="border border-white border-3 opacity-75 mt-4 ">
+
+            <a href="{% url 'logout' %}" class="btn btn-dark m-4 w-50">Cerrar sesión</a>
+
+  
+</div>
+
+{% endblock %}

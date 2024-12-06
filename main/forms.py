@@ -1,5 +1,6 @@
+import datetime
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import *
 from main.models import *
 
@@ -73,3 +74,51 @@ class RegistrarseForm(UserCreationForm):
             user.save()
 
         return user
+    
+    
+class UserForm(UserChangeForm):
+    email = forms.EmailField(required=False)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name', 'last_name')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        return email
+
+    def save(self, commit=True):
+        user = super(UserForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+
+        return user
+    
+    
+class TarjetaCreditoForm(forms.ModelForm):
+    class Meta:
+        model = TarjetaCredito
+        fields = ['numero_tarjeta', 'fecha_vencimiento', 'nombre_titular']
+
+    def clean_numero_tarjeta(self):
+        numero_tarjeta = self.cleaned_data.get('numero_tarjeta')
+        if not numero_tarjeta.isdigit():
+            raise forms.ValidationError("El número de tarjeta debe contener solo dígitos.")
+        if len(numero_tarjeta) != 16:
+            raise forms.ValidationError("El número de tarjeta debe tener 16 dígitos.")
+        return numero_tarjeta
+
+    def clean_fecha_vencimiento(self):
+        fecha_vencimiento = self.cleaned_data.get('fecha_vencimiento')
+        if fecha_vencimiento < datetime.date.today():
+            raise forms.ValidationError("La fecha de vencimiento debe ser una fecha futura.")
+        return fecha_vencimiento
+    
+class CambiarContrasForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(CambiarContrasForm, self).__init__(*args, **kwargs)
