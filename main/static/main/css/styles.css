@@ -18,7 +18,7 @@ body, .text, .card-title {
 }
 
 /* Primary Button Styles */
-.btn-primary {
+.btn-morado {
   font-weight: bold;
   background-color: #800080; /* Purple background */
   color: #ffffff; /* White text for contrast */
@@ -26,14 +26,23 @@ body, .text, .card-title {
   border: none; /* Optional: Remove border if needed */
 }
 
-.btn-primary:hover,
-.btn-primary:focus {
+.btn-morado:hover,
+.btn-morado:focus {
   background-color: #660066; /* Darker purple for hover/focus state */
   color: #ffffff; /* Ensure text remains visible */
 }
 
+
+.list-group-item {
+  font-size: 14px;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
 /* Primary Text Styles */
-.txt-primary {
+.txt-morado {
   font-weight: bold;
   color: #800080; /* Purple text */
   text-transform: uppercase;
@@ -63,7 +72,7 @@ body, .text, .card-title {
 
 /* Fondo y general */
 body {
-  background: linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0.392)), url("../img/background.jpg") center/cover fixed;
+  background: linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0.392)), url("../img/backgrounds/background.jpg") center/cover fixed;
   color: black;
 }
 
@@ -98,11 +107,11 @@ body {
 .form-container label {
   color: #6c757d;
 }
-.btn-primary {
+.btn-morado {
   background-color: #007bff;
   border: none;
 }
-.btn-primary:hover {
+.btn-morado:hover {
   background-color: #0056b3;
 }
 
@@ -119,6 +128,16 @@ body {
 
 nav a {
   font-weight: 600;
+}
+
+.favorito-btn {
+  border: none;
+  background-color: #199f1b00;
+}
+
+.favorito-btn:active {
+  border: none;
+  background-color: #199f1b00;
 }
 
 /* Sección de precios */

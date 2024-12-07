@@ -21,3 +21,43 @@ document.addEventListener('DOMContentLoaded', function () {
         document.removeEventListener('click', closeFilterOnClickOutside);
     });
 });
+
+
+document.querySelectorAll('.favorito-btn').forEach((button) => {
+    button.addEventListener('click', function () {
+        const itemId = button.dataset.id;
+        const itemType = button.dataset.type;
+
+        const url = `/toggle-favorito/`;
+
+        console.log('Sending request to:', url);
+        console.log('ID:', itemId);
+        console.log('Type:', itemType);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken, // Ensure csrfToken is defined
+            },
+            body: JSON.stringify({ id: itemId, type: itemType }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log('Response:', data);
+                if (data.favorito) {
+                    button.innerHTML = '<i class="fas fa-star" style="color: gold;"></i>';
+                } else {
+                    button.innerHTML = '<i class="far fa-star"></i>';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+});

@@ -1,0 +1,18 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="txt-morado text-center mb-4">Crear Nuevo Departamento</h2>
+
+    <div class="card shadow p-4">
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success px-4">Crear</button>
+                <a href="{% url 'gestion_departamentos' %}" class="btn btn-secondary px-4">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

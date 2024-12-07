@@ -9,15 +9,15 @@
       <div class="card shadow-sm h-100">
         <div class="card-body text-center">
           <h3 class="card-title">{{ plan.name }}</h3>
-          <h2 class="fs-1 fw-lighter text-primary">{{ plan.price }}€</h2>
+          <h2 class="fs-1 fw-lighter txt-morado">{{ plan.price }}€</h2>
           <p class="card-text">{{ plan.description }}</p>
           <ul class="list-group list-group-flush mb-3">
             <li class="list-group-item">{{ plan.features }}</li>
           </ul>
           {% if forloop.first %}
-            <a href="{% url 'register_plan' %}" class="btn btn-primary w-100">Register for {{ plan.name }}</a>
+            <a href="{% url 'register_plan' %}" class="btn btn-morado w-100">Registrar {{ plan.name }}</a>
           {% else %}
-            <button class="btn btn-secondary w-100 disabled">Available Soon</button>
+            <button class="btn btn-secondary w-100 disabled">Disponible Pronto</button>
           {% endif %}
         </div>
       </div>

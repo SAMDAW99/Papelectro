@@ -1,0 +1,35 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título -->
+    <h2 class="txt-morado text-center mb-4">{{ titulo }}</h2>
+
+    <!-- Formulario -->
+    <div class="card shadow p-4">
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <!-- Campos del formulario -->
+            {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-success px-4">Guardar Cambios</button>
+                <a href="{% url 'gestion_usuarios' %}" class="btn btn-secondary px-4">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

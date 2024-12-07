@@ -61,7 +61,7 @@
         "price": "19.99",
         "description": "Plan ideal para equipos pequenos.",
         "features": "Almacenamiento de 100GB,Acceso avanzado a documentos,Hasta 5 usuarios",
-        "button_class": "btn-primary",
+        "button_class": "btn-morado",
         "order": 2
     }
 },

@@ -5,53 +5,53 @@
         <div class="col-lg-6 col-md-8 col-sm-12">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4">
-                    <h2 class="text-center mb-4">Contact Us</h2>
+                    <h2 class="text-center mb-4">Contáctanos</h2>
                     <form method="post">
                         {% csrf_token %}
                         
-                        <!-- Sender Email -->
+                        <!-- Correo del remitente -->
                         <div class="form-group">
-                            <label for="sender">Your Email:</label>
+                            <label for="sender">Tu correo electrónico:</label>
                             <input 
                                 type="email" 
                                 id="sender" 
                                 name="sender" 
                                 class="form-control" 
-                                placeholder="Enter your email address" 
+                                placeholder="Introduce tu dirección de correo electrónico" 
                                 required>
                         </div>
 
-                        <!-- Subject -->
+                        <!-- Asunto -->
                         <div class="form-group">
-                            <label for="subject">Subject:</label>
+                            <label for="subject">Asunto:</label>
                             <input 
                                 type="text" 
                                 id="subject" 
                                 name="subject" 
                                 class="form-control" 
-                                placeholder="Enter the subject" 
+                                placeholder="Introduce el asunto" 
                                 required>
                         </div>
 
-                        <!-- Message -->
+                        <!-- Mensaje -->
                         <div class="form-group">
-                            <label for="message">Message:</label>
+                            <label for="message">Mensaje:</label>
                             <textarea 
                                 id="message" 
                                 name="message" 
                                 rows="5" 
                                 class="form-control" 
-                                placeholder="Write your message here..." 
+                                placeholder="Escribe tu mensaje aquí..." 
                                 required></textarea>
                         </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary btn-block mt-2">
-                            Send Message
+                        <!-- Botón de envío -->
+                        <button type="submit" class="btn btn-morado btn-block mt-2">
+                            Enviar mensaje
                         </button>
                     </form>
 
-                    <!-- Display Success/Info Messages -->
+                    <!-- Mostrar mensajes de éxito/información -->
                     {% for message in messages %}
                         <div class="alert alert-info mt-4" role="alert">
                             {{ message }}

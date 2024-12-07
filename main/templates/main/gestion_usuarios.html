@@ -1,0 +1,56 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título y Botón Añadir Usuario -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="txt-morado">Gestión de Usuarios</h2>
+        <a href="{% url 'crear_usuario' %}" class="btn btn-success">Añadir Usuario</a>
+    </div>
+
+    <!-- Tabla de Usuarios -->
+    <div class="table-responsive card">
+        <table class="table table-striped">
+            <thead class="thead">
+                <tr>
+                    <th>Nombre de Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Departamento</th>
+                    <th>Editar</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.first_name }}</td>
+                    <td>{{ usuario.last_name }}</td>
+                    <td>
+                        {% for group in usuario.groups.all %}
+                            {{ group.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            Sin Departamento
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a type="submit" class="btn btn-sm" href="{% url 'gestion_usuario' pk=usuario.pk %}"><i class="far fa-edit"></i></a>
+                    </td>
+                    <td class="text-center">
+                        <form method="post" action="{% url 'eliminar_usuario' pk=usuario.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay usuarios registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

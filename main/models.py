@@ -6,6 +6,7 @@ class Directorio(models.Model):
     nombre = models.CharField(max_length=255)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='subdirectorios', on_delete=models.CASCADE)
+    favorito = models.BooleanField(default=False)  # New field to mark as favorite
 
     def __str__(self):
         return self.nombre
@@ -18,6 +19,7 @@ class Archivo(models.Model):
     directorio = models.ForeignKey(Directorio, null=True, blank=True, related_name='archivos', on_delete=models.CASCADE)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     grupo = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL)  # Asociar archivo a un grupo
+    favorito = models.BooleanField(default=False)  # New field to mark as favorite
 
     @property
     def tipo(self):
@@ -50,7 +52,7 @@ class SubscriptionPlan(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     features = models.TextField(help_text="Enter features separated by commas.")
-    button_class = models.CharField(max_length=50, default="btn-primary")
+    button_class = models.CharField(max_length=50, default="btn-morado")
     order = models.IntegerField()
 
     def get_features_list(self):

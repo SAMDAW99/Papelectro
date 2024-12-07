@@ -1,0 +1,54 @@
+{% extends 'main/admin_dashboard.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="txt-morado text-center mb-4">Favoritos</h2>
+
+    <!-- Directorios Favoritos -->
+    <h2>Directorios Favoritos</h2>
+    <ul class="list-group mb-4">
+        {% for directorio in favoritos_directorios %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="{% url 'directorios' directorio.pk %}">
+                        <i class="fas fa-folder"></i> {{ directorio.nombre }}
+                    </a>
+                </div>
+                <div>
+                    <button class="favorito-btn" data-id="{{ directorio.id }}" data-type="directorio">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                    </button>
+                    <a href="{% url 'directorios' directorio.pk %}" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+            </li>
+        {% empty %}
+            <p class="alert alert-info">No hay directorios favoritos.</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Archivos Favoritos -->
+    <h2>Archivos Favoritos</h2>
+    <ul class="list-group">
+        {% for archivo in favoritos_archivos %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-file-alt"></i> {{ archivo.nombre }}</span>
+                <div>
+                    <button class="favorito-btn mr-4" data-id="{{ archivo.id }}" data-type="archivo">
+                        <i class="fas fa-star" style="color: gold;"></i>
+                    </button>
+                    <a href="{% url 'detalle-archivo' archivo.pk %}" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{% url 'archivos-descargar' archivo.pk %}" class="btn btn-success btn-sm">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            </li>
+        {% empty %}
+            <p class="alert alert-info">No hay archivos favoritos.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

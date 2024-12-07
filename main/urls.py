@@ -32,6 +32,17 @@ urlpatterns = [
     path('perfil_usuario/editar_usuario/', EditarPerfil.as_view(), name='editar_usuario'),
     path('perfil_usuario/', PerfilUsuario.as_view(), name='perfil_usuario'),
     path('info/', InfoPageView.as_view(), name='info'),
+    path('gestion_usuarios/', UserListView.as_view(), name='gestion_usuarios'),
+    path('gestion_usuarios/eliminar/<int:pk>/', UserDeleteView.as_view(), name='eliminar_usuario'),
+    path('gestion_usuarios/crear/', CrearUsuarioView.as_view(), name='crear_usuario'),  
+    path('gestion_usuarios/editar/<int:pk>/', EditarUsuarioView.as_view(), name='gestion_usuario'),
+    path('departamentos/', DepartmentListView.as_view(), name='gestion_departamentos'),
+    path('departamentos/crear/', DepartmentCreateView.as_view(), name='crear_departamento'),
+    path('departamentos/editar/<int:pk>/', DepartmentEditPermissionsView.as_view(), name='editar_permisos_departamento'),
+    path('departamentos/eliminar/<int:pk>/', DepartmentDeleteView.as_view(), name='eliminar_departamento'),
+    path('toggle-favorito/<int:pk>/', ToggleFavoritoView.as_view(), name='toggle_favorito'),
+    path('favoritos/', FavoritosView.as_view(), name='favoritos'),
+    path('toggle-favorito/', ToggleFavoritoView.as_view(), name='toggle_favorito'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,6 @@
 import json
 from django.urls import reverse, reverse_lazy
+from django.http import JsonResponse
 from django.contrib.auth.views import *
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -418,11 +419,15 @@ class DirectorioDeleteView(DeleteView):
 #         # Return success response
 #         return JsonResponse({'status': 'success'})
 
-
+class CrearUsuarioView(CreateView):
+    model = User
+    template_name = 'main/crear_usuario.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('gestion_usuarios')
 
 
 class RegisterPlanView(CreateView):
-    template_name = 'main/register_plan.html'
+    template_name = 'main/crear_usuario.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('pricing')  # Redirect after successful registration
 
@@ -503,3 +508,110 @@ class CambiarContras(PasswordChangeView):
 
 class InfoPageView(TemplateView):
     template_name = 'main/info.html'
+
+from django.contrib.auth.models import User, Group
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView
+from django.shortcuts import redirect
+
+class UserListView(ListView):
+    model = User
+    template_name = 'main/gestion_usuarios.html'
+    context_object_name = 'usuarios'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['grupos'] = Group.objects.all()
+        return context
+
+class UserDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('gestion_usuarios')
+
+    def post(self, request, *args, **kwargs):
+        usuario = self.get_object()
+        usuario.delete()
+        return redirect(self.success_url)
+
+
+
+class EditarUsuarioView(UpdateView):
+    model = User
+    template_name = 'main/editar_usuario.html'
+    form_class = EditarUsuarioForm
+    success_url = reverse_lazy('gestion_usuarios')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Editar Usuario"
+        return context
+    
+    
+
+class DepartmentListView(ListView):
+    model = Group
+    template_name = 'main/departamentos.html'
+    context_object_name = 'departamentos'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Gestión de Departamentos"
+        context['permisos'] = Permission.objects.all()  
+        return context
+
+
+# Crear un nuevo departamento
+class DepartmentCreateView(CreateView):
+    model = Group
+    template_name = 'main/crear_departamento.html'
+    fields = ['name']  # Nombre del departamento
+    success_url = reverse_lazy('gestion_departamentos')
+
+# Editar permisos de un departamento
+
+
+class DepartmentEditPermissionsView(UpdateView):
+    model = Group
+    form_class = GroupPermissionsForm
+    template_name = 'your_template.html'
+    success_url = reverse_lazy('gestion_departamentos')
+
+
+# Eliminar un departamento
+class DepartmentDeleteView(DeleteView):
+    model = Group
+    template_name = 'main/eliminar_departamento.html'
+    success_url = reverse_lazy('gestion_departamentos')
+    
+
+class ToggleFavoritoView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            item_id = data.get('id')
+            item_type = data.get('type')
+
+            if item_type == "archivo":
+                item = get_object_or_404(Archivo, id=item_id, propietario=request.user)
+            elif item_type == "directorio":
+                item = get_object_or_404(Directorio, id=item_id, propietario=request.user)
+            else:
+                return JsonResponse({'error': 'Invalid type'}, status=400)
+
+            # Toggle the favorito field
+            item.favorito = not item.favorito
+            item.save()
+
+            return JsonResponse({'favorito': item.favorito})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+
+class FavoritosView(LoginRequiredMixin, TemplateView):
+    template_name = "main/favoritos.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['favoritos_archivos'] = Archivo.objects.filter(propietario=self.request.user, favorito=True)
+        context['favoritos_directorios'] = Directorio.objects.filter(propietario=self.request.user, favorito=True)
+        return context

@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('price', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('description', models.TextField(blank=True)),
                 ('features', models.TextField(help_text='Enter features separated by commas.')),
-                ('button_class', models.CharField(default='btn-primary', max_length=50)),
+                ('button_class', models.CharField(default='btn-morado', max_length=50)),
                 ('order', models.IntegerField()),
             ],
         ),

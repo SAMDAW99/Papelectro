@@ -11,8 +11,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'main/css/styles.css' %}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">    
 </head>
 <body>
 <div class="container-fluid">
@@ -22,31 +21,29 @@
                 <a class="navbar-brand text-light px-2 " href="../.."><h3>Papelectro</h3></a>
                 <ul class="nav flex-column mt-5 px-2">
                     <li class="nav-item">
-                        
-                        <a class="nav-link active" href="{% url 'file_manager' %}">
-                            <i class="fas fa-folder-open mr-2"></i> 
+                        <a class="nav-link {% if request.path == '/file_manager/' %}active{% endif %}" href="{% url 'file_manager' %}">
+                            <i class="fas fa-folder-open mr-2"></i>
                             Todos los archivos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user-cog mr-2"></i> 
+                        <a class="nav-link {% if request.path == '/gestion_usuarios/' %}active{% endif %}" href="{% url 'gestion_usuarios' %}">
+                            <i class="fas fa-user-cog mr-2"></i>
                             Gestión de Usuarios
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-chart-line mr-2"></i>
-                            Estadísticas
+                        <a class="nav-link {% if request.path == '/departamentos/' %}active{% endif %}" href="{% url 'gestion_departamentos' %}">
+                            <i class="fas fa-sitemap mr-2"></i>
+                            Gestión de Departamentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-cog mr-2"></i>
-                            Configuración
+                        <a class="nav-link {% if request.path == '/configuracion/' %}active{% endif %}" href="{% url 'favoritos' %}">
+                            <i class="fas fa-star mr-2"></i>Favoritos
                         </a>
                     </li>
-                </ul>
+                </ul>                
             </div>
         </nav>
 
@@ -59,7 +56,10 @@
         
     </div>
 </div>
-
+<script>
+    const csrfToken = "{{ csrf_token }}";
+</script>
+<script src="{% static 'JS/filtros.js' %}"></script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

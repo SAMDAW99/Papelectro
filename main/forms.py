@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import *
 from main.models import *
+from django.contrib.admin.widgets import FilteredSelectMultiple  
 
 USER_TYPE_CHOICES = [
     ('user', 'User'),
@@ -122,3 +123,25 @@ class TarjetaCreditoForm(forms.ModelForm):
 class CambiarContrasForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super(CambiarContrasForm, self).__init__(*args, **kwargs)
+
+
+
+class EditarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'groups']
+        labels = {
+            'first_name': 'Nombre',
+            'last_name': 'Apellidos',
+            'email': 'Correo Electrónico',
+            'groups': 'Departamento',
+        }
+        
+        
+class GroupPermissionsForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['permissions']
+        widgets = {
+            'permissions': FilteredSelectMultiple('Permisos', is_stacked=False),
+        }
