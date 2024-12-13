@@ -17,6 +17,7 @@
                     Cambiar Contraseña
                 </a>
             </div>
+            {% if user.is_staff %}
             <h2 class="mt-4">Tarjetas de Crédito</h2>
             <div class="table-responsive">
                 <table class="table">
@@ -46,6 +47,7 @@
                     </tbody>
                 </table>
             </div>
+            {% endif %}
             <hr class="border border-white border-3 opacity-75 mt-4 ">
 
             <a href="{% url 'logout' %}" class="btn btn-dark m-4 w-50">Cerrar sesión</a>

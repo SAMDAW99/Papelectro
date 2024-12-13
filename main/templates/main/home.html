@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static i18n %}
+
 {% block general %}
 <section class="banner mt-5 text-center">
     <h2>Olvida el caos, bienvenido al orden digital</h2>
@@ -7,10 +8,46 @@
     <a href="#features" class="btn btn-success">Descubre más</a>
 </section>
 
+<section class="carousel-section mt-5">
+    <div id="featuresCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'main/img/carrousel/document-storing.jpeg' %}" class="d-block w-100" alt="Organización">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Organización Digital</h5>
+                    <p>Simplifica y optimiza el manejo de tus documentos empresariales.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'main/img/carrousel/background.jpg' %}" class="d-block w-100" alt="Seguridad">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Seguridad Garantizada</h5>
+                    <p>Tus datos siempre protegidos con tecnología de última generación.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'main/img/carrousel/businessman-using-computer-document-management-concept-online-documentation-database-digital-file-storage-system-software-records-keeping-database-technology-file-acc.avif' %}" class="d-block w-100" alt="Personalización">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Adaptado a Ti</h5>
+                    <p>Planes y funcionalidades a medida del crecimiento de tu empresa.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+</section>
+
 <section class="features my-5" id="features">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4 ">
+            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4">
                 <h3>Almacenamiento Seguro</h3>
                 <p>Sube, organiza y descarga archivos de forma segura en nuestra plataforma, con la tranquilidad de que tus datos están protegidos.</p>
                 <img src="{% static 'main/img/mas_imagenes/background.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Almacenamiento Seguro">
@@ -20,10 +57,64 @@
                 <p>Encuentra rápidamente los documentos que necesitas con nuestro sistema de búsqueda avanzada por palabras clave, categorías o fechas.</p>
                 <img src="{% static 'main/img/carrousel/busqueda_inteligente.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Búsqueda Inteligente">
             </div>
-            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4 ">
+            <div class="col-lg-4 col-md-4 d-flex flex-column text-center feature-card bg-light p-4">
                 <h3>Planes Personalizados</h3>
                 <p>Elige el plan de almacenamiento que mejor se adapte a las necesidades de tu empresa, con opciones escalables según el crecimiento.</p>
-                <img src="{% static 'main/img/carrousel/elige_tu_plan.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Planes Personalizados">
+                <img src="{% static 'main/img/carrousel/pexels-fauxels-3184292.jpg' %}" class="img-fluid rounded feature-image mt-auto" alt="Planes Personalizados">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials py-5 bg-dark text-white">
+    <div class="container">
+        <h2 class="text-center mb-4">Lo que nuestros clientes dicen</h2>
+        <div class="row">
+            <div class="col-lg-4 text-center mb-4">
+                <blockquote class="blockquote">
+                    <p>"Papelectro transformó la forma en que manejamos nuestros documentos. Es rápido, seguro y muy intuitivo."</p>
+                    <footer class="blockquote-footer text-white">Ana López, CEO de TechCorp</footer>
+                </blockquote>
+            </div>
+            <div class="col-lg-4 text-center mb-4">
+                <blockquote class="blockquote">
+                    <p>"Gracias a su sistema de búsqueda, hemos ahorrado horas de trabajo cada semana. Muy recomendable."</p>
+                    <footer class="blockquote-footer text-white">Carlos Ramírez, Gerente de Logística</footer>
+                </blockquote>
+            </div>
+            <div class="col-lg-4 text-center mb-4">
+                <blockquote class="blockquote">
+                    <p>"La personalización de planes fue clave para nuestro crecimiento. Excelente servicio al cliente también."</p>
+                    <footer class="blockquote-footer text-white">María Fernández, Directora de Operaciones</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="benefits py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Beneficios Clave</h2>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <i class="fas fa-lock fa-3x mb-3 text-success"></i>
+                <h4>Seguridad</h4>
+                <p>Protección avanzada para todos tus documentos.</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                <h4>Eficiencia</h4>
+                <p>Encuentra lo que necesitas en segundos.</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <i class="fas fa-cogs fa-3x mb-3 text-warning"></i>
+                <h4>Personalización</h4>
+                <p>Ajusta las funciones a las necesidades de tu negocio.</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <i class="fas fa-cloud fa-3x mb-3 text-info"></i>
+                <h4>Accesibilidad</h4>
+                <p>Accede desde cualquier lugar, en cualquier momento.</p>
             </div>
         </div>
     </div>
@@ -32,6 +123,52 @@
 <section class="cta text-center py-5 bg-light text-dark">
     <h2>Empieza Hoy Mismo</h2>
     <p>Optimiza la gestión de documentos de tu empresa con Papelectro. ¡Regístrate y prueba nuestras funcionalidades avanzadas!</p>
-    <a href="#" class="btn btn-dark">Regístrate Ahora</a>
+    <a href="{% url 'register_and_create_empresa' %}" class="btn btn-dark">Regístrate Ahora</a>
 </section>
+
+<section class="faq py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Preguntas Frecuentes</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        ¿Es seguro almacenar mis documentos en Papelectro?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sí, utilizamos tecnologías avanzadas de encriptación y sistemas de respaldo para garantizar la seguridad de tus documentos.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿Puedo cambiar de plan más adelante?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Por supuesto, puedes escalar tu plan según las necesidades de tu empresa en cualquier momento.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="faqThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        ¿Ofrecen soporte técnico?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Sí, nuestro equipo de soporte está disponible 24/7 para ayudarte con cualquier consulta o problema.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}

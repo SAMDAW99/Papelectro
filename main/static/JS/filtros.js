@@ -61,3 +61,19 @@ document.querySelectorAll('.favorito-btn').forEach((button) => {
             });
     });
 });
+
+
+document.getElementById('createDepartmentForm').addEventListener('submit', function(event) {
+    // Obtener el valor del campo 'name'
+    var groupName = document.getElementById('name').value;
+
+    // Expresión regular para validar el formato 'grupo_empresa'
+    var regex = /^[a-zA-Z0-9_-]+_[a-zA-Z0-9_-]+$/;
+
+    // Comprobar si el nombre del grupo coincide con el patrón
+    if (!regex.test(groupName)) {
+        // Prevenir el envío del formulario si no es válido
+        event.preventDefault();
+        alert('El nombre del departamento debe seguir el formato: grupo_empresa');
+    }
+});

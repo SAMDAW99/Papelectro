@@ -1,57 +1,54 @@
 {% extends 'main/base.html' %}
-
+{% load widget_tweaks %}
+{% load static %}
 {% block general %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form method="post" class="card p-4 shadow">
-                <h3 class="text-center">Registro del plan {{ plan.name }}</h3>
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="{{ form.username.id_for_label }}">Username</label>
-                    {{ form.username }}
-                    {% if form.username.errors %}
-                        <div class="alert alert-danger mt-2">
-                            {% for error in form.username.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.password1.id_for_label }}">Password</label>
-                    {{ form.password1 }}
-                    {% if form.password1.errors %}
-                        <div class="alert alert-danger mt-2">
-                            {% for error in form.password1.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                    {{ form.password2 }}
-                    {% if form.password2.errors %}
-                        <div class="alert alert-danger mt-2">
-                            {% for error in form.password2.errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+    <!-- Contenedor principal con margen superior, centrado y usando flexbox -->
+    <div class="container mt-4 d-flex justify-content-center">
+        <!-- Tarjeta con ancho del 50% de su contenedor -->
+        <div class="card w-50 shadow-lg">
+            <div class="card-body">
+                <!-- Título de la tarjeta centrado y con estilo -->
+                <h2 class="card-title text-center mb-4">Añadir Usuario</h2>
+
+                <!-- Imagen centrada dentro de la tarjeta -->
+                <div class="text-center mb-4">
+                    <img src="{% static 'main/icons/8801434.png'%}" alt="User Icon" width="80" height ="80">
                 </div>
 
-                <button type="submit" class="btn btn-morado w-100 mt-3">Register</button>
+                <!-- Formulario para editar un producto -->
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
 
-                {% if messages %}
-                    <div class="alert alert-danger mt-3">
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
+                    <!-- Iteración sobre los campos del formulario, excluyendo el campo de contraseña -->
+                    {% for field in form %}
+                        {% if field.name != 'password' %}
+                            <!-- Contenedor para cada campo con márgenes inferiores -->
+                            <div class="mb-3">
+                                <!-- Etiqueta del campo -->
+                                {{ field.label_tag }}
+                                <!-- Campo del formulario -->
+                                {{ field|add_class:"form-control" }}
+                                <!-- Mensaje de ayuda opcional -->
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Contenedor con márgenes superiores y alineación de elementos centrados -->
+                    <div class="d-flex justify-content-center">
+                        <!-- Botón de submit para enviar el formulario -->
+                        <button type="submit" class="btn btn-morado btn-lg">Guardar </button>
                     </div>
-                {% endif %}
-            </form>
+                </form>
+
+                <!-- Contenedor con márgenes superiores y alineación de elementos centrados -->
+                <div class="d-flex justify-content-center mt-3">
+                    <!-- Enlace para cancelar la acción y volver atrás -->
+                    <a href="{% url 'perfil_usuario' %}" class="btn btn-secondary w-100">Cancelar</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

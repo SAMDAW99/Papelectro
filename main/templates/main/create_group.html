@@ -1,5 +1,16 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Crear Grupo</button>
-</form>
+{% extends 'main/base.html' %}
+
+{% block general %}
+<div class="container my-5">
+    <h2 class="text-center">Crear Departamento</h2>
+    <form id="createDepartmentForm" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="name">Nombre del Departamento</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+            <small id="helpText" class="form-text text-muted">El grupo debe escribirse de esta manera: grupo_empresa</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Departamento</button>
+    </form>
+</div>
+{% endblock %}

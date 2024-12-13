@@ -5,11 +5,7 @@ from django.contrib.auth.models import *
 from main.models import *
 from django.contrib.admin.widgets import FilteredSelectMultiple  
 
-USER_TYPE_CHOICES = [
-    ('user', 'User'),
-    ('staff', 'Staff'),
-    ('admin', 'Admin'),
-]
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -20,61 +16,70 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
         label='Password'
     )
-    user_type = forms.ChoiceField(
-        choices=USER_TYPE_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        label='User Type'
-    )
+    
     next = forms.CharField(widget=forms.HiddenInput(), required=False)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        user_type = cleaned_data.get("user_type")
-        username = cleaned_data.get('username')
-
-        if user_type == 'staff':
-            staff_user_exists = User.objects.filter(username=username, is_staff=True).exists()
-            if not staff_user_exists:
-                raise forms.ValidationError("No estás autorizado para iniciar sesión como personal.")
-        
-        return cleaned_data
+   
 
 
-class RegistrarseForm(UserCreationForm):
+class RegistroConEmpresaForm(UserCreationForm):
+    # Campos del usuario
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuario'}),
         label='Usuario'
     )
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}),
         label='Contraseña'
     )
-
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
-        label='Repetir contraseña'
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Repetir Contraseña'}),
+        label='Repetir Contraseña'
     )
-  
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
+    # Campos de la empresa
+    nombre_empresa = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la Empresa'}),
+        label='Nombre de la Empresa'
+    )
+    descripcion = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Descripción de la Empresa'}),
+        label='Descripción',
+        required=False
+    )
+    codigo_empresa = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Código de Empresa (5 caracteres)'}),
+        label='Código de Empresa',
+    )
+    
+    def clean_codigo_empresa(self):
+        codigo = self.cleaned_data.get('codigo_empresa')
+        if Empresa.objects.filter(codigo_empresa=codigo).exists():
+            raise forms.ValidationError("El código de empresa ya está en uso. Por favor, elige otro.")
+        return codigo
 
-
-
-        if password1 != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden.")
-
-        return cleaned_data
-
-    def save(self, commit=True):
+    def save_user(self, commit=True):
+        # Guarda el usuario
         user = super().save(commit=False)
-
         if commit:
             user.save()
-
         return user
+
+    def save_empresa(self, user, commit=True):
+        # Guarda la empresa asociada al usuario
+        empresa = Empresa(
+            nombre=self.cleaned_data.get('nombre_empresa'),
+            descripcion=self.cleaned_data.get('descripcion'),
+            codigo_empresa=self.cleaned_data.get('codigo_empresa'),
+            ceo=user
+        )
+        if commit:
+            empresa.save()
+        return empresa
+    
+   
+
+
     
     
 class UserForm(UserChangeForm):
@@ -137,7 +142,8 @@ class EditarUsuarioForm(forms.ModelForm):
             'groups': 'Departamento',
         }
         
-        
+
+              
 class GroupPermissionsForm(forms.ModelForm):
     class Meta:
         model = Group
@@ -145,3 +151,5 @@ class GroupPermissionsForm(forms.ModelForm):
         widgets = {
             'permissions': FilteredSelectMultiple('Permisos', is_stacked=False),
         }
+        
+        

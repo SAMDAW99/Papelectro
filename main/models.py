@@ -2,6 +2,21 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 
 
+class Empresa(models.Model):
+    codigo_empresa = models.CharField(max_length=5, unique=True, null= False)
+    nombre = models.CharField(max_length=20, unique=True)
+    ceo = models.OneToOneField(User, on_delete=models.CASCADE, related_name="empresa_ceo")
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nombre} ({self.codigo_empresa})"
+    
+class GrupoPersonalizado(Group):
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="grupos")
+
+
+
+
 class Directorio(models.Model):
     nombre = models.CharField(max_length=255)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,6 +31,7 @@ class Archivo(models.Model):
     archivo = models.FileField(upload_to='uploads/')
     nombre = models.CharField(max_length=255)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="archivos")
     directorio = models.ForeignKey(Directorio, null=True, blank=True, related_name='archivos', on_delete=models.CASCADE)
     propietario = models.ForeignKey(User, on_delete=models.CASCADE)
     grupo = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL)  # Asociar archivo a un grupo
@@ -35,16 +51,15 @@ class Archivo(models.Model):
 
 
 class Usuario(models.Model):
-    # Relación uno a uno con el modelo User de Django
     usuario = models.OneToOneField(User, on_delete=models.PROTECT)
-    is_admin = models.BooleanField(default=False)  # Para diferenciar usuarios admin
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
     
-
     def __str__(self):
         return str(self.usuario)
 
     class Meta:
         verbose_name_plural = "Usuarios"
+
         
         
 class SubscriptionPlan(models.Model):

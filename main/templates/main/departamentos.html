@@ -81,6 +81,10 @@
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No hay departamentos registrados.</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>

@@ -17,6 +17,11 @@ import os
 from django.db import transaction
 from django.db.models import Q
 import mimetypes
+from django.db.models.signals import post_save
+from .signals import usuario_creado_signal
+from datetime import datetime, timedelta
+
+
 
 
 class HomePageView(TemplateView):
@@ -28,13 +33,13 @@ class UserLoginView(LoginView):
     template_name = 'main/login.html'
 
     def get_success_url(self):
-        # Redirecciona al dashboard adecuado según el rol del usuario
+        user = self.request.user
+
         return reverse_lazy('file_manager')
 
     def form_valid(self, form):
         login(self.request, form.get_user())
         return super().form_valid(form)
-
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('login')
@@ -131,7 +136,9 @@ class ArchivoUploadView(LoginRequiredMixin, CreateView):
             # Get the current directory from URL arguments
             directorio_actual_pk = self.kwargs.get('directorio_pk', None)
             form.instance.propietario = self.request.user  # Set the file owner
-
+            usuario = Usuario.objects.get(usuario=self.request.user)  # Accede al modelo Usuario
+            form.instance.empresa = usuario.empresa  # Asigna la empresa al archivo
+            
             # If there's a directory specified, assign it to the file
             if directorio_actual_pk:
                 directorio_actual = get_object_or_404(Directorio, pk=directorio_actual_pk)
@@ -424,42 +431,16 @@ class CrearUsuarioView(CreateView):
     template_name = 'main/crear_usuario.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('gestion_usuarios')
-
-
-class RegisterPlanView(CreateView):
-    template_name = 'main/crear_usuario.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('pricing')  # Redirect after successful registration
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Fetch the first plan and add it to the context
-        plan = SubscriptionPlan.objects.first()
-        if plan:
-            context['plan'] = plan
-        else:
-            messages.warning(self.request, "No subscription plans found.")
-        return context
-
+    
     def form_valid(self, form):
-        # Save the user
-        user = form.save(commit=False)
-        user.is_superuser = True 
-        user.is_staff = True      
-        user.save()
-
-        # Add user-specific logic (e.g., associating a plan)
-        plan = SubscriptionPlan.objects.first()
-        if plan:
-            messages.success(self.request, f"User {user.username} registered for the {plan.name} plan!")
-        else:
-            messages.warning(self.request, f"User {user.username} registered, but no plan is associated.")
-
+        empleado = form.save(commit=False)
+        empleado.is_staff = True
+        empleado._created_by = self.request.user
+        empleado.save()
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(self.request, "Registration failed. Please correct the errors below.")
-        return super().form_invalid(form)
+
+
     
 class CreateGroupView(CreateView):
     model = Group
@@ -509,20 +490,27 @@ class CambiarContras(PasswordChangeView):
 class InfoPageView(TemplateView):
     template_name = 'main/info.html'
 
-from django.contrib.auth.models import User, Group
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DeleteView
-from django.shortcuts import redirect
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'main/gestion_usuarios.html'
     context_object_name = 'usuarios'
 
+    def get_queryset(self):
+        # Filtra los usuarios según la empresa del usuario autenticado
+        try:
+            usuario_actual = Usuario.objects.get(usuario=self.request.user)
+            usuarios = User.objects.filter(usuario__empresa=usuario_actual.empresa)
+            return usuarios if usuarios.exists() else User.objects.none()
+        except Usuario.DoesNotExist:
+            return User.objects.none()  # Si no hay un usuario asociado, devolver vacío
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['grupos'] = Group.objects.all()
+        context['grupos'] = Group.objects.all()  # Agrega todos los grupos al contexto
+        context['no_usuarios'] = not context['usuarios'].exists()  # Verifica si no hay usuarios
         return context
+
 
 class UserDeleteView(DeleteView):
     model = User
@@ -548,26 +536,63 @@ class EditarUsuarioView(UpdateView):
     
     
 
-class DepartmentListView(ListView):
-    model = Group
+class DepartmentListView(LoginRequiredMixin, ListView):
+    model = GrupoPersonalizado
     template_name = 'main/departamentos.html'
     context_object_name = 'departamentos'
+
+    def get_queryset(self):
+        # Obtén la empresa del usuario autenticado
+        try:
+            usuario_actual = Usuario.objects.get(usuario=self.request.user)
+            departamentos = GrupoPersonalizado.objects.filter(empresa=usuario_actual.empresa)
+            return departamentos if departamentos.exists() else GrupoPersonalizado.objects.none()
+        except Usuario.DoesNotExist:
+            return GrupoPersonalizado.objects.none()  # Si no hay usuario asociado, retornar vacío
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = "Gestión de Departamentos"
-        context['permisos'] = Permission.objects.all()  
+        context['permisos'] = Permission.objects.all()  # Agrega permisos globales al contexto
+        context['no_departamentos'] = not context['departamentos'].exists()  # Verifica si no hay departamentos
         return context
 
 
+
 # Crear un nuevo departamento
-class DepartmentCreateView(CreateView):
-    model = Group
+class DepartmentCreateView(LoginRequiredMixin, CreateView):
+    model = GrupoPersonalizado  # Using the customized Group model
     template_name = 'main/crear_departamento.html'
-    fields = ['name']  # Nombre del departamento
+    fields = ['name']  # Only the name field is used, but it will be hidden or read-only
     success_url = reverse_lazy('gestion_departamentos')
 
-# Editar permisos de un departamento
+    def get_initial(self):
+        # Get initial data from the parent method
+        initial = super().get_initial()
+        
+        # Get the current user's associated company
+        usuario_actual = Usuario.objects.get(usuario=self.request.user)
+        empresa = usuario_actual.empresa  # Get the associated company
+
+        # Combine the group name with the company name
+        initial['name'] = f"{initial.get('name', '')}_{empresa.nombre}"
+        
+        return initial
+
+    def form_valid(self, form):
+        # Get the current user's associated company
+        usuario_actual = Usuario.objects.get(usuario=self.request.user)
+        empresa = usuario_actual.empresa  # Get the associated company
+
+        # Set the empresa field before saving the group
+        form.instance.empresa = empresa  # Associate the company with the group
+
+        # Save the group with the combined name
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Hubo un error al crear el departamento.")
+        return super().form_invalid(form)
 
 
 class DepartmentEditPermissionsView(UpdateView):
@@ -615,3 +640,117 @@ class FavoritosView(LoginRequiredMixin, TemplateView):
         context['favoritos_archivos'] = Archivo.objects.filter(propietario=self.request.user, favorito=True)
         context['favoritos_directorios'] = Directorio.objects.filter(propietario=self.request.user, favorito=True)
         return context
+
+
+
+
+class RegisterAndCreateEmpresaView(CreateView):
+    template_name = 'main/register_and_create_empresa.html'
+    form_class = RegistroConEmpresaForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+    # Retrieve the "Premium" plan
+        try:
+            premium_plan = SubscriptionPlan.objects.get(name="Premium")
+        except SubscriptionPlan.DoesNotExist:
+            # Handle case where the Premium plan is not found
+            form.add_error(None, "Premium subscription plan is not configured.")
+            print("Error: Premium subscription plan is not configured.")
+            return self.form_invalid(form)
+
+        # Use a transaction to ensure both actions are atomic
+        with transaction.atomic():
+            # Save the user and set admin privileges
+            user = form.save_user(commit=False)
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+
+            # Create the company
+            empresa = form.save_empresa(user, commit=True)
+            usuario_creado_signal.send(
+                sender=User,
+                instance=user,
+                empresa=empresa
+            )
+
+            # Assign the Premium subscription plan to the user
+            Subscription.objects.create(
+                user=user,
+                plan=premium_plan,
+                end_date=datetime.now().date() + timedelta(days=365)  # One year later
+            )
+
+            # Send the post_save signal and pass the company of the authenticated user
+            post_save.send(
+                sender=User,
+                instance=user,
+                created=True,
+                empresa=empresa  # Pass the created company here
+            )
+
+        # Show success message
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("Form is invalid. Errors:", form.errors)
+        return super().form_invalid(form)
+
+
+
+class RegisterAndCreateEmpresaViewBasico(CreateView):
+    template_name = 'main/register_and_create_empresa_basico.html'
+    form_class = RegistroConEmpresaForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        # Retrieve the "Premium" plan
+        try:
+            basic_plan = SubscriptionPlan.objects.get(name="Básico")
+        except SubscriptionPlan.DoesNotExist:
+            form.add_error(None, "Premium subscription plan is not configured.")
+            print("Error: Premium subscription plan is not configured.")
+            return self.form_invalid(form)
+
+        # Use a transaction to ensure both actions are atomic
+        with transaction.atomic():
+            # Save the user and set admin privileges
+            user = form.save_user(commit=False)
+            user.is_staff = False
+            user.is_superuser = False
+            user.save()
+
+            # Create the company
+            empresa = form.save_empresa(user, commit=True)
+            usuario_creado_signal.send(
+                sender=User,
+                instance=user,
+                empresa=empresa
+            )
+
+            # Assign the Premium subscription plan to the user
+            Subscription.objects.create(
+                user=user,
+                plan=basic_plan,
+                end_date=datetime.now().date() + timedelta(days=365)  # One year later
+            )
+
+            # Send the post_save signal and pass the company of the authenticated user
+            post_save.send(
+                sender=User,
+                instance=user,
+                created=True,
+                empresa=empresa  # Pass the created company here
+            )
+
+        # Show success message
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("Form is invalid. Errors:", form.errors)
+        return super().form_invalid(form)
+
+
+
+

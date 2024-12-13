@@ -47,8 +47,8 @@
     "fields": {
         "name": "Básico",
         "price": "0",
-        "description": "Plan basico para usuarios individuales.",
-        "features": "Almacenamiento de 10GB,Acceso bßsico a documentos,1 usuario",
+        "description": "Plan básico para usuarios individuales.",
+        "features": "Almacenamiento de 10GB, Acceso básico a documentos, 1 usuario, Soporte por correo electrónico estándar, Sin acceso a características avanzadas como la colaboración en tiempo real, Limitado a solo un dispositivo conectado simultáneamente, Acceso limitado a plantillas y personalización.",
         "button_class": "btn-outline-primary",
         "order": 1
     }
@@ -58,9 +58,9 @@
     "pk": 2,
     "fields": {
         "name": "Pro",
-        "price": "19.99",
-        "description": "Plan ideal para equipos pequenos.",
-        "features": "Almacenamiento de 100GB,Acceso avanzado a documentos,Hasta 5 usuarios",
+        "price": "99.99",
+        "description": "Plan ideal para equipos pequeños.",
+        "features": "Almacenamiento de 100GB, Acceso avanzado a documentos, Hasta 5 usuarios, Soporte por correo electrónico y chat en vivo, Colaboración en tiempo real con hasta 3 usuarios simultáneos, Personalización avanzada de plantillas y documentos, Sincronización en múltiples dispositivos, Prioridad en actualizaciones de funciones y mejoras, Acceso a reportes básicos y estadísticas.",
         "button_class": "btn-morado",
         "order": 2
     }
@@ -70,9 +70,9 @@
     "pk": 3,
     "fields": {
         "name": "Premium",
-        "price": "29.99",
+        "price": "199.99",
         "description": "Plan completo para grandes equipos.",
-        "features": "Almacenamiento ilimitado,Acceso premium a todos los documentos,Usuarios ilimitados",
+        "features": "Almacenamiento ilimitado, Acceso premium a todos los documentos, Usuarios ilimitados, Soporte 24/7 por chat, teléfono y correo electrónico, Colaboración avanzada con gestión de equipos y proyectos, Sincronización en múltiples dispositivos de manera simultánea, Acceso completo a todas las funciones premium, Personalización completa de la plataforma y documentos, Creación de informes personalizados, Control avanzado de permisos de acceso, Herramientas avanzadas de automatización, Análisis detallados de uso y tráfico, Acceso prioritario a nuevas funcionalidades y actualizaciones.",
         "button_class": "btn-success",
         "order": 3
     }

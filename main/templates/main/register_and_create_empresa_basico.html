@@ -1,0 +1,64 @@
+{% extends "main/base.html" %}
+
+{% block general %}
+<div class="container mt-5">
+    <h2 class="text-center">Registro de Usuario y Creación de Empresa</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}
+                <small class="text-danger">{{ form.username.errors }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <small class="text-danger">{{ form.password1.errors }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <small class="text-danger">{{ form.password2.errors }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="nombre_empresa">Nombre de la Empresa</label>
+          {{ form.nombre_empresa }}
+          {% if form.nombre_empresa.errors %}
+              <small class="text-danger">{{ form.nombre_empresa.errors }}</small>
+          {% endif %}
+      </div>
+      <div class="form-group mb-3">
+          <label for="descripcion">Descripción de la Empresa</label>
+          {{ form.descripcion }}
+          {% if form.descripcion.errors %}
+              <small class="text-danger">{{ form.descripcion.errors }}</small>
+          {% endif %}
+      </div>
+      <div class="form-group mb-3">
+          <label for="codigo_empresa">Código de Empresa</label>
+          {{ form.codigo_empresa }}
+          {% if form.codigo_empresa.errors %}
+              <small class="text-danger">{{ form.codigo_empresa.errors }}</small>
+          {% endif %}
+          {{ form..errors }}
+      </div>
+
+
+        <div class="form-group mb-3">
+            <label>Plan de Suscripción</label>
+            <h3 class="text-primary">Básico</h3>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrarse y Crear Empresa</button>
+    </form>
+</div>
+{% endblock %}

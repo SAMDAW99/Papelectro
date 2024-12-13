@@ -17,6 +17,32 @@ body, .text, .card-title {
   text-transform: uppercase;
 }
 
+.btn-gold {
+  background: linear-gradient(45deg, #6b5c06, #ffbf00); /* Gold gradient */
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth hover effects */
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(45deg, #85660a, #ffd900); /* Reverse gradient */
+  transform: scale(1.05); /* Slightly enlarge */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+}
+
+.btn-gold:active {
+  transform: scale(0.98); /* Click effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow */
+}
+
+
 /* Primary Button Styles */
 .btn-morado {
   font-weight: bold;
@@ -293,9 +319,13 @@ nav a {
 footer {
   background-color: #22995b;
   color: #fff;
-  text-align: center;
   padding: 20px 0;
   margin-top: 100px;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  text-align: center;
 }
 
 footer p {

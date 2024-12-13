@@ -26,6 +26,7 @@
                             Todos los archivos
                         </a>
                     </li>
+                    {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/gestion_usuarios/' %}active{% endif %}" href="{% url 'gestion_usuarios' %}">
                             <i class="fas fa-user-cog mr-2"></i>
@@ -38,6 +39,7 @@
                             Gestión de Departamentos
                         </a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/configuracion/' %}active{% endif %}" href="{% url 'favoritos' %}">
                             <i class="fas fa-star mr-2"></i>Favoritos
@@ -47,8 +49,93 @@
             </div>
         </nav>
 
-        <main role="main" class="col-md-8 ml-sm-auto col-lg-10 pl-5">
-            <div class='container-fluid mt-5'>
+        <main role="main" class="col-md-8 ml-sm-auto col-lg-10 pl-5 ml-0 mt-0 mb-5">
+            <div class='container-fluid mt-5 mb-5'>
+                <div class="caja d-flex">
+                    <h1>Mis Archivos</h1>
+                    <nav class="navbar navbar-light d-flex ml-auto">                    
+                        <div class="d-flex align-items-right">
+                            {% if user.is_staff %}
+                            <a href="{% url 'pricing' %}" class="btn btn-dark p-2 mx-2" type="button">Mejorar plan</a> 
+                            {% endif %}
+                            <a class="btn btn-light pl-2 ml-2" type="button" href="{% url 'info' %}">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            
+                            <a class="btn btn-light pl-2 ml-2" type="button" href="{% url 'perfil_usuario' %}">
+                                <i class="fas fa-user-circle"></i>
+                            </a>
+                        </div>        
+                    </nav>
+                    
+                      </div>
+                <div class='nav d-flex justify-content-between mt-4'>
+                        <!-- Botón de Filtro -->
+                        <div class="text-end mb-3">
+                            <button class="btn text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedFilter" aria-expanded="false" aria-controls="advancedFilter">
+                                Filtrar <i class="fas fa-filter"></i> 
+                            </button>
+                        </div>
+                
+                        <!-- Formulario Desplegable -->
+                        <div class="collapse " id="advancedFilter">
+                            <div class="card card-body shadow-lg">
+                                <form method="get" action="" class="col-g-3">
+                                    <div >
+                                        <label for="search" class="form-label"><i class="fas fa-search"></i> Palabra clave</label>
+                                        <input type="text" id="search" name="search" class="form-control" placeholder="Buscar por nombre" value="{{ search_query }}">
+                                    </div>
+                                    <div >
+                                        <label for="tipo" class="form-label mt-2"><i class="fas fa-file"></i> Tipo de archivo</label>
+                                        <select id="tipo" name="tipo" class="form-select">
+                                            <option value="">Todos</option>
+                                            <option value="image" {% if tipo_archivo == 'image' %}selected{% endif %}>Imágenes</option>
+                                            <option value="video" {% if tipo_archivo == 'video' %}selected{% endif %}>Videos</option>
+                                            <option value="pdf" {% if tipo_archivo == 'pdf' %}selected{% endif %}>PDF</option>
+                                            <option value="text" {% if tipo_archivo == 'text' %}selected{% endif %}>Texto</option>
+                                            <option value="documento" {% if tipo_archivo == 'documento' %}selected{% endif %}>Documentos</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="fecha_inicio" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha desde</label>
+                                        <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" value="{{ fecha_inicio }}">
+                                    </div>
+                                    <div>
+                                        <label for="fecha_fin" class="form-label"><i class="fas fa-calendar-check"></i> Fecha hasta</label>
+                                        <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" value="{{ fecha_fin }}">
+                                    </div>
+                                    <div class="col-12 text-end mt-2">
+                                        <button type="submit" class="btn btn-morado">
+                                            <i class="fas fa-search"></i> Aplicar
+                                        </button>
+                                        <a href="{% url 'file_manager' %}" class="btn btn-secondary">
+                                            <i class="fas fa-redo"></i> Limpiar
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-dark dropdown-toggle btn-no-adjust" type="button" id="nuevoMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-plus"></i> Nuevo
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="nuevoMenu">
+                            {% if directorio_actual == none %}
+                            <a class="dropdown-item" href="{% url 'archivos-subir-none' %}">
+                                <i class="fas fa-file-alt"></i> Archivo
+                            </a>
+                            <a class="dropdown-item" href="{% url 'crear-directorio-none' %}">
+                                <i class="fas fa-folder-plus"></i> Directorio
+                            </a>
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'archivos-subir' directorio_actual.pk %}">
+                                <i class="fas fa-file-alt"></i> Archivo
+                            </a>
+                            <a class="dropdown-item" href="{% url 'crear-directorio' directorio_actual.pk %}">
+                                <i class="fas fa-folder-plus"></i> Directorio
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
                 {% block content %}
                 {% endblock %}
             </div>
