@@ -7,7 +7,7 @@
 ## Funcionalidades Principales
 
 ### Almacenamiento y Gestión de Documentos
-Papelectro permite a las empresas almacenar diferentes tipos de documentos (`*.txt`, `*.xls`, `.pdf`) de manera segura y accesible en cualquier momento. Los archivos podrán organizarse en carpetas dentro de la plataforma, según el plan de almacenamiento contratado.
+Papelectro permite a las empresas almacenar diferentes tipos de documentos (`*.txt`, `*.xls`, `.pdf`, ` .jpg'...) de manera segura y accesible en cualquier momento. Los archivos podrán organizarse en carpetas dentro de la plataforma, según el plan de almacenamiento contratado.
 
 ### Búsqueda Inteligente
 Los usuarios podrán realizar búsquedas avanzadas utilizando palabras clave, categorías o fechas, mejorando la eficiencia en la recuperación de información.
@@ -24,7 +24,6 @@ Se implementarán diferentes niveles de acceso basados en roles, lo que permitir
   - Botón: **Descubre más** (enlace a la sección de características).
 - **Sección de Características**
   - Funcionalidades principales de la plataforma:
-    - **Almacenamiento Seguro**: Acceso y seguridad para documentos.
     - **Búsqueda Inteligente**: Filtrado avanzado y por palabra clave.
     - **Planes Personalizados**: Selección de plan de acuerdo a necesidades.
 - **Sección CTA (Call to Action)**
@@ -37,12 +36,11 @@ Se implementarán diferentes niveles de acceso basados en roles, lo que permitir
 ## 2. Mapa de Navegación Principal
 
 1. ### Dashboard
-   - **Resumen** de archivos recientes y notificaciones.
+   - **Resumen** de archivos y carpetas.
    - **Acceso directo** a búsqueda, favoritos y papelera.
 
 2. ### Documentos
    - **Mis Documentos**: Visualización de archivos personales.
-   - **Compartidos Conmigo**: Archivos compartidos por otros usuarios.
    - **Favoritos**: Documentos marcados para acceso rápido.
 
 3. ### Búsqueda Inteligente
@@ -56,27 +54,26 @@ Se implementarán diferentes niveles de acceso basados en roles, lo que permitir
 5. ### Configuración de Cuenta y Suscripción
    - **Cuenta personal**: Actualización de datos personales.
    - **Suscripción**: Configuración y detalles de pago.
-   - **Notificaciones y permisos** de usuario.
 
 6. ### Soporte y Ayuda
    - Guías de uso y preguntas frecuentes.
-   - **Acceso al soporte técnico**.
+   - **Contacto**.
 
 ---
 
 ## Jerarquía de Navegación
 La barra de navegación superior contiene accesos directos a las secciones clave:
-- **Inicio**, **Documentos**, **Búsqueda**, **Papelera** y **Configuración**.
+- **Inicio**, **Documentos**, **Búsqueda**, **Favoritos** y **Papelera**.
 - **Botón de Cargar Archivo**: Un botón resaltado para subir documentos rápidamente.
 
 ### Planes de Suscripción
-Papelectro implementa un modelo de negocio basado en suscripciones, donde las empresas pagarán una cuota mensual o anual para acceder al servicio, con diferentes niveles de almacenamiento y funcionalidades según el plan contratado.
+Papelectro implementa un modelo de negocio basado en suscripciones, donde las empresas pagarán una cuota  anual para acceder al servicio, con diferentes niveles de almacenamiento y funcionalidades según el plan contratado.
 
 ### Seguridad
-La seguridad es fundamental en este proyecto. Se implementarán prácticas como el cifrado de datos, autenticación segura y protección de acceso a los documentos.
+La seguridad es fundamental en este proyecto. Se implementarán prácticas como el cifrado de datos.
 
 ### Simulación de Pago
-Se integrará un simulador de pago mediante **PayPal** para gestionar las cuotas de suscripción, permitiendo a las empresas abonar los planes de almacenamiento de manera sencilla y segura.
+Se integrará un simulador de pago mediante **PayPal** para gestionar las cuotas de suscripción, permitiendo a las empresas abonar los planes de almacenamiento de manera sencilla y segura.(No he podido)
 
 ### Páginas Adicionales
 La aplicación contará con una página de inicio, una sección de información sobre el servicio, una página de contacto y una sección para seleccionar los planes de almacenamiento disponibles.
@@ -90,7 +87,7 @@ El papel es ineficiente y genera altos costos de almacenamiento físico y riesgo
 El proyecto incluye:
 - Desarrollo del backend y frontend para la gestión de archivos, usuarios y roles.
 - Integración de funcionalidades de seguridad.
-- Implementación del sistema de pagos por suscripción con **PayPal**.
+- Implementación del sistema de pagos por suscripción con **PayPal**.(NO he podido)
 - Funcionalidad de búsqueda avanzada de documentos.
 - Escalabilidad para crecer a medida que más empresas se unan al servicio.
 
@@ -113,17 +110,14 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
 - **Django**: Framework robusto y seguro para el desarrollo del backend, gestión de usuarios y autenticación.
 
 ### Frontend:
-- **Angular** o **Django Templates**: Dependiendo del nivel de interactividad necesario.
+- **JS** o **Django Templates**: Dependiendo del nivel de interactividad necesario.
 - **Bootstrap**, **CSS**, **HTML**: Para una interfaz responsiva y amigable.
 
 ### Base de Datos:
-- **PostgreSQL** o **SQLite3**: PostgreSQL para producción, SQLite3 para desarrollo.
+- **SQLite3**: SQLite3 para desarrollo y producción.
 
 ### Servidor:
-- **Apache** o **AWS**: Apache para servidor local, y AWS para almacenamiento y hosting escalable.
-
-### Almacenamiento de Archivos:
-- Sistema de archivos local o **Amazon S3** para almacenamiento escalable.
+- **PythonAnywhere** 
 
 ### JSON:
 - Se utilizará para la transferencia de datos entre frontend y backend.
@@ -141,15 +135,15 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
 
 ### Requisitos Funcionales:
 - Autenticación de usuarios y gestión de contraseñas.
-- Gestión de documentos: subir, descargar, renombrar y eliminar archivos.
+- Gestión de documentos: subir, descargar y eliminar archivos.
 - Roles y permisos de usuario diferenciados (administrador y usuario estándar).
-- Suscripciones y pagos mediante **PayPal**.
+- Suscripciones y pagos mediante **PayPal**.(no he podido)
 - Búsqueda avanzada de documentos por filtros y palabras clave.
 - Límites de almacenamiento según el plan.
 
 ### Requisitos No Funcionales:
 - Escalabilidad para manejar un número creciente de usuarios y documentos.
-- Seguridad mediante SSL, cifrado de datos y autenticación segura.
+- Cifrado de datos y autenticación segura.
 - Disponibilidad del 99.9% del tiempo.
 - Rendimiento optimizado (operaciones en menos de 3 segundos).
 - Compatibilidad con diferentes navegadores y dispositivos.
@@ -179,7 +173,7 @@ Son plataformas de notas que carecen de la gestión de roles y la seguridad avan
 - **Actor**: Administrador.
 - **Flujo**: Seleccionar plan > Realizar pago vía PayPal > Confirmación.
 
-### Caso de Uso 4: Gestión de Roles y Permisos
+### Caso de Uso 4: Gestión de Roles y Permisos (No he podido del todo )
 **Descripción**: El administrador gestiona los permisos de usuarios.
 - **Actor**: Administrador.
 - **Flujo**: Acceder a gestión de usuarios > Asignar permisos/roles > Guardar cambios.
