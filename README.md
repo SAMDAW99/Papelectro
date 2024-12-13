@@ -7,7 +7,7 @@
 ## Funcionalidades Principales
 
 ### Almacenamiento y Gestión de Documentos
-Papelectro permite a las empresas almacenar diferentes tipos de documentos (`*.txt`, `*.xls`, `.pdf`, ` .jpg'...) de manera segura y accesible en cualquier momento. Los archivos podrán organizarse en carpetas dentro de la plataforma, según el plan de almacenamiento contratado.
+Papelectro permite a las empresas almacenar diferentes tipos de documentos (`*.txt`, `*.xls`, `.pdf`, ` .jpg`...) de manera segura y accesible en cualquier momento. Los archivos podrán organizarse en carpetas dentro de la plataforma, según el plan de almacenamiento contratado.
 
 ### Búsqueda Inteligente
 Los usuarios podrán realizar búsquedas avanzadas utilizando palabras clave, categorías o fechas, mejorando la eficiencia en la recuperación de información.
@@ -250,7 +250,6 @@ Para Papelectro, es fundamental que la experiencia del usuario sea fluida y agra
 
 Con estos principios, Papelectro ofrecerá una interfaz intuitiva y accesible que prioriza la comodidad del usuario, facilitando la gestión documental en un entorno digital dinámico.
 
-Aquí tienes un texto más elaborado:
 
 ---
 
@@ -266,7 +265,6 @@ Aquí tienes un texto más elaborado:
 
 ---
 
-Este enfoque resalta de manera clara los retos que has enfrentado y da una visión más detallada de los obstáculos en tu proceso de desarrollo.
 
 
 
