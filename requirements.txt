@@ -1,4 +1,4 @@
 django-widget-tweaks
-Django~=5.0.4
+Django>=4.0,<5.0
 djangorestframework~=3.15.1
 chardet
