@@ -250,6 +250,24 @@ Para Papelectro, es fundamental que la experiencia del usuario sea fluida y agra
 
 Con estos principios, Papelectro ofrecerá una interfaz intuitiva y accesible que prioriza la comodidad del usuario, facilitando la gestión documental en un entorno digital dinámico.
 
+Aquí tienes un texto más elaborado:
+
+---
+
+**Retos en el Desarrollo de Papelectro**
+
+1. **Gestión de Usuarios y Roles**: Implementar la gestión de usuarios y la asignación de roles en Django ha sido un desafío. Aunque se ha avanzado en la integración de la autenticación y la creación de roles, la asignación de permisos personalizados y la correcta configuración de accesos según el rol del usuario no se ha podido realizar por completo. A pesar de los intentos, algunos aspectos del control de acceso y la administración de usuarios aún requieren ajustes adicionales para asegurar una experiencia fluida y segura.
+
+2. **Integración de Pagos con PayPal**: La integración de un sistema de pagos por suscripción mediante PayPal ha resultado ser particularmente difícil. La implementación de las pasarelas de pago, la validación de las transacciones y la configuración del modelo de suscripción no han sido tareas fáciles, y aún no se ha logrado una integración completamente funcional que permita procesar pagos de manera eficiente.
+
+3. **Almacenamiento Seguro de Documentos**: Aunque se tiene la intención de implementar almacenamiento seguro para los documentos, no se ha podido avanzar en la práctica con la implementación de técnicas adecuadas de cifrado y almacenamiento seguro de archivos. Las opciones de almacenamiento como Amazon S3 y su integración en Django requieren un nivel de conocimiento y experiencia que aún no se ha alcanzado completamente, lo que ha dificultado su implementación efectiva.
+
+4. **Equilibrar los Tiempos de Desarrollo**: Dado que el proyecto se está desarrollando de manera iterativa, equilibrar los tiempos de desarrollo ha sido un reto constante. Ajustar plazos y prioridades es especialmente complejo cuando surgen imprevistos o cuando se presentan nuevos requisitos que alteran el plan de trabajo inicial. La dificultad para estimar con precisión el tiempo necesario para implementar algunas características ha generado algunos retrasos y ha complicado la planificación del proyecto.
+
+---
+
+Este enfoque resalta de manera clara los retos que has enfrentado y da una visión más detallada de los obstáculos en tu proceso de desarrollo.
+
 
 
 
